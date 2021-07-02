@@ -1,0 +1,2 @@
+$^q::
+Clipboard := StrReplace(Clipboard, "`\", "/")
