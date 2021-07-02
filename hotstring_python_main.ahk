@@ -1,0 +1,1 @@
+::if __name__::if __name__ == "__main__":{enter}print("In Main"){enter}{enter}print("End of Main")
