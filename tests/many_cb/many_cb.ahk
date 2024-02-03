@@ -23,20 +23,29 @@ READ MORE:
 App := Gui("Resize", "Clipboard Tools")
 App.SetFont("s12")
 
-og_clipboard_edit_size_opt_str := " r8 w300 "
+og_clipboard_edit_opt_str := " r8 w300 -Wrap "
 
 App.AddText(, "Original Clipboard:")
-cClipboardEdit := App.AddEdit("ReadOnly " . og_clipboard_edit_size_opt_str) ;GUI widgets are called "controls", hence "cClipboardEdit"
+cClipboardEdit := App.AddEdit("ReadOnly " . og_clipboard_edit_opt_str) ;GUI widgets are called "controls", hence "cClipboardEdit"
+cClipboardEdit.SetFont(, "Consolas")
 cClipboardEdit.value := A_Clipboard
 
 
+; Uppercase
 App.AddText(,"Uppercase:")
 ; cOutputEdit := App.AddEdit("ReadOnly r10 w400 ")
-cOutputEdit := App.AddEdit("ReadOnly" . og_clipboard_edit_size_opt_str)
+cOutputEdit := App.AddEdit("ReadOnly" . og_clipboard_edit_opt_str)
+cOutputEdit.SetFont(, "Consolas")
 
-App.AddButton("Default w80", "Load File").OnEvent("Click", LoadFile)
+cOutputEdit.value := StrUpper(cClipboardEdit.value)
 
-cClipboardEdit.OnEvent("Change", UpdateOutput) ; Triggered every time you type into the top box
+
+
+
+
+; App.AddButton("Default w80", "Load File").OnEvent("Click", LoadFile)
+
+; cClipboardEdit.OnEvent("Change", UpdateOutput) ; Triggered every time you type into the top box
 App.OnEvent("Close", (*) => ExitApp(0))
 App.OnEvent("Escape", (*) => ExitApp(0)) ; Close when you hit esc
 
@@ -151,19 +160,19 @@ AutoXYWH(DimSize, cList*)   ;https://www.autohotkey.com/boards/viewtopic.php?t=1
 
 
 
-UpdateOutput(ctrl, unused) {
-    cOutputEdit.value := StrUpper(ctrl.value)
-}
+; UpdateOutput(ctrl, unused) {
+;     cOutputEdit.value := StrUpper(ctrl.value)
+; }
 
-LoadFile(ctrl, unused) {
-    ; File selection is real easy in AHK!
-    ; READ MORE: https://www.autohotkey.com/docs/v2/lib/FileSelect.htm
-    file := FileSelect("1")
-    if file {
-        cClipboardEdit.value := FileRead(file)
-        UpdateOutput(cClipboardEdit, "unused")
-    }
-}
+; LoadFile(ctrl, unused) {
+;     ; File selection is real easy in AHK!
+;     ; READ MORE: https://www.autohotkey.com/docs/v2/lib/FileSelect.htm
+;     file := FileSelect("1")
+;     if file {
+;         cClipboardEdit.value := FileRead(file)
+;         UpdateOutput(cClipboardEdit, "unused")
+;     }
+; }
 
 
 
