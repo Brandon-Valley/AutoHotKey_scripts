@@ -20,16 +20,19 @@ READ MORE:
 
 ; cb := Clipboard
 
-App := Gui("Resize", "UPCASER")
+App := Gui("Resize", "Clipboard Tools")
 App.SetFont("s12")
 
+og_clipboard_edit_size_opt_str := " r8 w300 "
+
 App.AddText(, "Original Clipboard:")
-cClipboardEdit := App.AddEdit("ReadOnly r8 w300") ;GUI widgets are called "controls", hence "cClipboardEdit"
+cClipboardEdit := App.AddEdit("ReadOnly " . og_clipboard_edit_size_opt_str) ;GUI widgets are called "controls", hence "cClipboardEdit"
 cClipboardEdit.value := A_Clipboard
 
 
-App.AddText(,"Output")
-cOutputEdit := App.AddEdit("r10 w400 ReadOnly")
+App.AddText(,"Uppercase:")
+; cOutputEdit := App.AddEdit("ReadOnly r10 w400 ")
+cOutputEdit := App.AddEdit("ReadOnly" . og_clipboard_edit_size_opt_str)
 
 App.AddButton("Default w80", "Load File").OnEvent("Click", LoadFile)
 
