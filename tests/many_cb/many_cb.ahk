@@ -90,6 +90,15 @@ cOutputEdit.SetFont(, "Consolas")
 tst:=ClipboardHistory.GetHistoryItemText(2)
 cOutputEdit.value := tst
 
+; Test2
+
+App.AddText(,"Test2:") ; Start a new column within this section.
+cOutputEdit := App.AddEdit("ReadOnly" . og_clipboard_edit_opt_str)
+cOutputEdit.SetFont(, "Consolas")
+
+tst:=ClipboardHistory.GetHistoryItemText(2)
+cOutputEdit.value := GetCombinedClipboardHistoryStr()
+
 
 
 ; for fmt in ClipboardHistory.GetAvailableFormats(2) { ; available formats of the second history item
@@ -100,11 +109,21 @@ cOutputEdit.value := tst
 GetCombinedClipboardHistoryStr(endStr := "---", cbItemSeperator := ",") {
     resultStr := ""
     i := 1
+    cbItemText := ""
+    ; while(cbItemText != endStr){
     while(1){
         cbItemText := ClipboardHistory.GetHistoryItemText(i)
-        resultStr := resultStr . cbItemText
-        msgBox resultStr
+
+        if (cbItemText == endStr){
+            return resultStr
+        }
+
+        resultStr := resultStr . cbItemSeperator . cbItemText
+        msgBox resultStr . "///" . cbItemText . "///" . endStr
+        i := i + 1
     }
+    
+
 
 
     ; for cbHistoryItem in ClipboardHistory.GetAvailableFormats(2) { ; available formats of the second history item
