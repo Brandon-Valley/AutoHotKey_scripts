@@ -108,22 +108,19 @@ cOutputEdit.value := GetCombinedClipboardHistoryItemText()
 ; }
 
 
-GetCombinedClipboardHistoryItemText(endStr := "---", cbItemSeperator := "`n") {
+GetCombinedClipboardHistoryItemText(endStr := "---", cbItemSeperator := "`n", returnIfEndNotFound := "") {
     resultStr := ""
-    i := 1
     cbItemText := ""
-    ; while(cbItemText != endStr){
+    i := 1
     while(i <= MAX_WINDOWS_CLIPBOARD_HISTORY_ITEMS){
         cbItemText := ClipboardHistory.GetHistoryItemText(i)
-
         if (cbItemText == endStr){
             return resultStr
         }
-
         resultStr := resultStr . cbItemSeperator . cbItemText
-        ; msgBox resultStr . "///" . cbItemText . "///" . endStr
         i := i + 1
     }
+    return returnIfEndNotFound
     
 
 
