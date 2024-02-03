@@ -16,9 +16,10 @@ READ MORE:
     - https://www.autohotkey.com/docs/v2/lib/GuiControls.htm
 */
 #SingleInstance Force ; No others
-
+#Include ClipboardHistory.ahk
 
 ; cb := Clipboard
+
 
 App := Gui("Resize", "Clipboard Tools")
 App.SetFont("s12")
@@ -45,6 +46,24 @@ cOutputEdit := App.AddEdit("ReadOnly" . og_clipboard_edit_opt_str)
 cOutputEdit.SetFont(, "Consolas")
 
 cOutputEdit.value := StrLower(cClipboardEdit.value)
+
+
+
+
+
+
+
+
+
+
+; Test
+
+App.AddText(,"Test:") ; Start a new column within this section.
+cOutputEdit := App.AddEdit("ReadOnly" . og_clipboard_edit_opt_str)
+cOutputEdit.SetFont(, "Consolas")
+
+tst:=ClipboardHistory.GetHistoryItemText(2)
+cOutputEdit.value := tst
 
 
 
