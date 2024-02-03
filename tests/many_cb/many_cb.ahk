@@ -18,6 +18,8 @@ READ MORE:
 #SingleInstance Force ; No others
 #Include ClipboardHistory.ahk
 
+MAX_WINDOWS_CLIPBOARD_HISTORY_ITEMS := 25
+
 ; cb := Clipboard
 
 
@@ -92,12 +94,12 @@ cOutputEdit.value := tst
 
 ; Test2
 
-App.AddText(,"Test2:") ; Start a new column within this section.
+App.AddText(,"GetCombinedClipboardHistoryItemText Test:") ; Start a new column within this section.
 cOutputEdit := App.AddEdit("ReadOnly" . og_clipboard_edit_opt_str)
 cOutputEdit.SetFont(, "Consolas")
 
 tst:=ClipboardHistory.GetHistoryItemText(2)
-cOutputEdit.value := GetCombinedClipboardHistoryStr()
+cOutputEdit.value := GetCombinedClipboardHistoryItemText()
 
 
 
@@ -106,12 +108,12 @@ cOutputEdit.value := GetCombinedClipboardHistoryStr()
 ; }
 
 
-GetCombinedClipboardHistoryStr(endStr := "---", cbItemSeperator := ",") {
+GetCombinedClipboardHistoryItemText(endStr := "---", cbItemSeperator := "`n") {
     resultStr := ""
     i := 1
     cbItemText := ""
     ; while(cbItemText != endStr){
-    while(1){
+    while(i <= MAX_WINDOWS_CLIPBOARD_HISTORY_ITEMS){
         cbItemText := ClipboardHistory.GetHistoryItemText(i)
 
         if (cbItemText == endStr){
@@ -119,7 +121,7 @@ GetCombinedClipboardHistoryStr(endStr := "---", cbItemSeperator := ",") {
         }
 
         resultStr := resultStr . cbItemSeperator . cbItemText
-        msgBox resultStr . "///" . cbItemText . "///" . endStr
+        ; msgBox resultStr . "///" . cbItemText . "///" . endStr
         i := i + 1
     }
     
