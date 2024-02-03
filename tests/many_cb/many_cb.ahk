@@ -23,22 +23,9 @@ READ MORE:
 App := Gui("Resize", "UPCASER")
 App.SetFont("s12")
 
-App.AddText(,"Clipboard")
-; cClipboardEdit := App.AddEdit("r10 w400 ReadOnly") ;GUI widgets are called "controls", hence "cClipboardEdit"
+App.AddText(, "Original Clipboard:")
 cClipboardEdit := App.AddEdit("ReadOnly r8 w300") ;GUI widgets are called "controls", hence "cClipboardEdit"
-; cClipboardEdit := App.AddEdit("ReadOnly") ;GUI widgets are called "controls", hence "cClipboardEdit"
-
-; Populate Clipboard Box
-; cClipboardEdit.value := Clipboard
 cClipboardEdit.value := A_Clipboard
-
-
-
-; App.Show("AutoSize"); TMP?
-; cClipboardEdit.Show("AutoSize")
-
-; SetTextAndResize(cClipboardEdit, A_Clipboard)
-
 
 
 App.AddText(,"Output")
