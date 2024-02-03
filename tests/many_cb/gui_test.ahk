@@ -6,4 +6,5 @@ MyGui.Add("Text", "Section", "First Name:")  ; Save this control's position and 
 MyGui.Add("Text",, "Last Name:")
 MyGui.Add("Edit", "ys")  ; Start a new column within this section.
 MyGui.Add("Edit")
+MyGui.Add("Edit", "ys")
 MyGui.Show

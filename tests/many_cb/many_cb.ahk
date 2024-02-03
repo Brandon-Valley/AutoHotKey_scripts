@@ -33,15 +33,14 @@ cClipboardEdit.value := A_Clipboard
 
 ; Uppercase
 App.AddText(,"Uppercase:")
-; cOutputEdit := App.AddEdit("ReadOnly r10 w400 ")
 cOutputEdit := App.AddEdit("ReadOnly" . og_clipboard_edit_opt_str)
 cOutputEdit.SetFont(, "Consolas")
 
 cOutputEdit.value := StrUpper(cClipboardEdit.value)
 
 ; Lowercase
-App.AddText(,"Lowercase:")
-; cOutputEdit := App.AddEdit("ReadOnly r10 w400 ")
+; App.AddText("Section ys","Lowercase:") ; Start a new column within this section.
+App.AddText("ys","Lowercase:") ; Start a new column within this section.
 cOutputEdit := App.AddEdit("ReadOnly" . og_clipboard_edit_opt_str)
 cOutputEdit.SetFont(, "Consolas")
 
