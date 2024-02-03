@@ -17,6 +17,10 @@ READ MORE:
 */
 #SingleInstance Force ; No others
 
+
+
+
+
 App := Gui("Resize", "UPCASER")
 App.SetFont("s12")
 
@@ -29,8 +33,14 @@ cOutput := App.AddEdit("r10 w400 ReadOnly")
 App.AddButton("Default w80", "Load File").OnEvent("Click", LoadFile)
 
 cInput.OnEvent("Change", UpdateOutput) ; Triggered every time you type into the top box
-App.OnEvent("Close", (*) => ExitApp(0))
+App.OnEvent("Close", (*) => ExitApp(0)) 
+
+Use this when run GUI from file like `Run "autohotkey.exe " . A_WorkingDir . "\Lib\GUIs\Upcaser.ahk"`
 App.OnEvent("Escape", (*) => ExitApp(0)) ; Close when you hit esc
+
+; ; DOC
+; GuiEscape: ; Note: single colon here, not double
+; Gui, Cancel
 
 App.Show()
 
@@ -50,5 +60,5 @@ LoadFile(ctrl, unused) {
 
 ; Separate scripts can have hotkeys, too. 
 ; Below hotkey will be removed when ExitApp is called.
-
 NumpadRight::MsgBox("This will be unbound when ExitApp(0) is called")
+
