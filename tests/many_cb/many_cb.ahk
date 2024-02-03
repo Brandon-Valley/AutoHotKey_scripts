@@ -34,10 +34,35 @@ cClipboardEdit.value := A_Clipboard
 
 ; Uppercase
 App.AddText(,"Uppercase:")
-cOutputEdit := App.AddEdit("ReadOnly" . og_clipboard_edit_opt_str)
+; App.AddButton("Default w80", "Copy").OnEvent("Click", LoadFile)
+
+cOutputEdit := App.AddText("ReadOnly " . og_clipboard_edit_opt_str)
 cOutputEdit.SetFont(, "Consolas")
+; cOutputEdit.BackColor := "00FF00"
+; cOutputEdit.OnEvent("Click", CopyControlValueToClipboard_Click)
+; cOutputEdit.On
 
 cOutputEdit.value := StrUpper(cClipboardEdit.value)
+
+; ; CopyControlValueToClipboard(controlObj) {
+; ;     A_Clipboard := controlObj.value
+; ; }
+
+; CopyControlValueToClipboard_Click(*) {
+;     msgBox("Pressed Button")
+;     ; A_Clipboard := "SUCCESS"
+; }
+
+; ; MyBtn_Click(*) ;Function to be called when button pressed
+; ; {
+; ;     msgBox("Pressed Button")    
+; ; }    
+; ; myBtn := MyGui.AddButton(,"OOK") ;Adds an ok Button to the Gui
+; ; myBtn.OnEvent("Click", MyBtn_Click) ;Call the function
+; ; myGui.Show() ;Shows Gui
+
+
+
 
 ; Lowercase
 ; App.AddText("Section ys","Lowercase:") ; Start a new column within this section.
@@ -64,6 +89,37 @@ cOutputEdit.SetFont(, "Consolas")
 
 tst:=ClipboardHistory.GetHistoryItemText(2)
 cOutputEdit.value := tst
+
+
+
+; for fmt in ClipboardHistory.GetAvailableFormats(2) { ; available formats of the second history item
+;     formats .= fmt . '`n'
+; }
+
+
+GetCombinedClipboardHistoryStr(endStr := "---", cbItemSeperator := ",") {
+    resultStr := ""
+    i := 1
+    while(1){
+        cbItemText := ClipboardHistory.GetHistoryItemText(i)
+        resultStr := resultStr . cbItemText
+        msgBox resultStr
+    }
+
+
+    ; for cbHistoryItem in ClipboardHistory.GetAvailableFormats(2) { ; available formats of the second history item
+    ;     formats .= fmt . '`n'
+    ; }
+
+
+    ; if !pIClipboardHistoryItem := this.GetClipboardHistoryItemByIndex(index)
+    ;     return false
+    ; bool := IClipboardStatics2.DeleteItemFromHistory(pIClipboardHistoryItem)
+    ; ObjRelease(pIClipboardHistoryItem)
+    ; return bool
+}
+
+
 
 
 
