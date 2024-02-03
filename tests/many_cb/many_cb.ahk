@@ -17,25 +17,34 @@ READ MORE:
 */
 #SingleInstance Force ; No others
 
+
+; cb := Clipboard
+
 App := Gui("Resize", "UPCASER")
 App.SetFont("s12")
 
-App.AddText(,"Input")
-cInput := App.AddEdit("r10 w400") ;GUI widgets are called "controls", hence "cInput"
+App.AddText(,"Clipboard")
+cClipboardEdit := App.AddEdit("r10 w400 ReadOnly") ;GUI widgets are called "controls", hence "cClipboardEdit"
+
+; Populate Clipboard Box
+; cClipboardEdit.value := Clipboard
+cClipboardEdit.value := A_Clipboard
+
+
 
 App.AddText(,"Output")
-cOutput := App.AddEdit("r10 w400 ReadOnly")
+cOutputEdit := App.AddEdit("r10 w400 ReadOnly")
 
 App.AddButton("Default w80", "Load File").OnEvent("Click", LoadFile)
 
-cInput.OnEvent("Change", UpdateOutput) ; Triggered every time you type into the top box
+cClipboardEdit.OnEvent("Change", UpdateOutput) ; Triggered every time you type into the top box
 App.OnEvent("Close", (*) => ExitApp(0))
 App.OnEvent("Escape", (*) => ExitApp(0)) ; Close when you hit esc
 
 App.Show()
 
 UpdateOutput(ctrl, unused) {
-    cOutput.value := StrUpper(ctrl.value)
+    cOutputEdit.value := StrUpper(ctrl.value)
 }
 
 LoadFile(ctrl, unused) {
@@ -43,8 +52,8 @@ LoadFile(ctrl, unused) {
     ; READ MORE: https://www.autohotkey.com/docs/v2/lib/FileSelect.htm
     file := FileSelect("1")
     if file {
-        cInput.value := FileRead(file)
-        UpdateOutput(cInput, "unused")
+        cClipboardEdit.value := FileRead(file)
+        UpdateOutput(cClipboardEdit, "unused")
     }
 }
 
