@@ -95,7 +95,7 @@ AddToolControls(
 
 
 VisualClipboardTool(
-    toolOutputStr   := GetCombinedClipboardHistoryItemText(),
+    toolOutputStr   := GetCombinedClipboardHistoryItemText,
     guiObject       := App,
     cNewTextOptions := C_NEW_TEXT_OPTIONTS__START_NEW_COLUMN,
     cNewTextText    := "ClipboardHistoryItem:",

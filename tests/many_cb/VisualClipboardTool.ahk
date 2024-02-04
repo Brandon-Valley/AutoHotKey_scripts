@@ -25,7 +25,8 @@ class VisualClipboardTool
         cNewEdit.SetFont(, cNewEditFontName)
         
         UpdateEditControlValue(unusedParamNeededForOnClipboardChange) {
-            cNewEdit.value := "CLIPBOARD UPDATED"
+            ; cNewEdit.value := "CLIPBOARD UPDATED"
+            cNewEdit.value := func()
         }
         OnClipboardChange UpdateEditControlValue
 
