@@ -43,3 +43,19 @@ LoadFile(ctrl, unused) {
         UpdateOutput(cClipboardEdit, "unused")
     }
 }
+
+
+
+
+
+; cClipboardEdit.OnEvent("Change", UpdateOutput) ; Triggered every time you type into the top box
+App.OnEvent("Close", (*) => ExitApp(0))
+App.OnEvent("Escape", (*) => ExitApp(0)) ; Close when you hit esc
+
+App.Show()
+
+
+; Separate scripts can have hotkeys, too. 
+; Below hotkey will be removed when ExitApp is called.
+
+NumpadRight::MsgBox("This will be unbound when ExitApp(0) is called")
