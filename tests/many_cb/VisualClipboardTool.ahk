@@ -24,10 +24,10 @@ class VisualClipboardTool
         cNewEdit := guiObject.AddEdit(cNewEditOptions)
         cNewEdit.SetFont(, cNewEditFontName)
         
-        ; UpdateEditControlValue(unusedParamNeededForOnClipboardChange) {
-        ;     cNewEdit.value := func()
-        ; }
-        OnClipboardChange cNewEdit.value := "CLIPBOARD UPDATED"
+        UpdateEditControlValue(unusedParamNeededForOnClipboardChange) {
+            cNewEdit.value := "CLIPBOARD UPDATED"
+        }
+        OnClipboardChange UpdateEditControlValue
 
         
 
