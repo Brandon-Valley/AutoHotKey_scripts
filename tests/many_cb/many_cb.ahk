@@ -43,7 +43,8 @@ cOutputEdit.SetFont(, "Consolas")
 cOutputEdit.value := StrUpper(cClipboardEdit.value)
 
 ; Lowercase
-App.AddEdit("ys","Lowercase:") ; Start a new column within this section.
+App.AddText("Section ys","Lowercase:") ; Start a new column within this section.
+; App.AddEdit("ys","Lowercase:") ; Start a new column within this section.
 cOutputEdit := App.AddEdit("ReadOnly" . og_clipboard_edit_opt_str)
 cOutputEdit.SetFont(, "Consolas")
 
@@ -72,6 +73,28 @@ cOutputEdit.value := GetCombinedClipboardHistoryItemText()
 
 
 
+
+; @param titleTextControlOptions Options:
+;   V: Sets the control's Name.
+;   Pos: xn yn wn hn rn Right Left Center Section VScroll HScroll
+;   -Tabstop 
+;   -Wrap 
+;   BackgroundColor 
+;   BackgroundTrans 
+;   Border 
+;   Theme 
+;   Disabled 
+;   Hidden
+AddToolControls(toolOutputStr, guiObject, cNewTextOptions, cNewTextText, cNewEditOptions, cNewEditFontName := "Consolas") {
+    cNewText := guiObject.AddText(cNewTextOptions, cNewTextText)
+    ; cOutputEdit := guiObject.AddEdit("ReadOnly" . og_clipboard_edit_opt_str)
+    cNewEdit := guiObject.AddEdit(cNewEditOptions)
+    cNewEdit.SetFont(, cNewEditFontName)
+    
+    cNewEdit.value := toolOutputStr
+}
+
+
 GetCombinedClipboardHistoryItemText(endStr := "---", cbItemSeperator := "`n", returnIfEndNotFound := "") {
     resultStr := ""
     cbItemText := ""
@@ -83,8 +106,22 @@ GetCombinedClipboardHistoryItemText(endStr := "---", cbItemSeperator := "`n", re
         }
         resultStr := resultStr . cbItemSeperator . cbItemText
         i := i + 1
-    }
     return returnIfEndNotFound
+}
+    
+
+
+
+    ; for cbHistoryItem in ClipboardHistory.GetAvailableFormats(2) { ; available formats of the second history item
+    ;     formats .= fmt . '`n'
+    ; }
+
+
+    ; if !pIClipboardHistoryItem := this.GetClipboardHistoryItemByIndex(index)
+    ;     return false
+    ; bool := IClipboardStatics2.DeleteItemFromHistory(pIClipboardHistoryItem)
+    ; ObjRelease(pIClipboardHistoryItem)
+    ; return bool
 }
 
 
