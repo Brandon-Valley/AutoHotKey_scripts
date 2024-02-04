@@ -11,7 +11,7 @@ You can run this script on its own, or from your main script with
 
     Run "autohotkey.exe " . A_WorkingDir . "\Lib\GUIs\Upcaser.ahk"
 
-Keeping GUIs separate is good unless they need to share information with the main script.
+Keeping GUIs separate is good unless they need to share information with the main script.     f      
 
 READ MORE:
     - https://www.autohotkey.com/docs/v2/lib/Gui.htm
@@ -26,7 +26,7 @@ cb := A_Clipboard
 App := Gui("Resize", "Clipboard Tools")
 App.SetFont("s12")
 
-og_clipboard_edit_opt_str := " r8 w300 -Wrap "
+defaultClipboardToolNewEditOptions := " ReadOnly r8 w300 -Wrap "
 
 
 AddToolControls(
@@ -34,7 +34,7 @@ AddToolControls(
     guiObject := App,
     cNewTextOptions := "", ; Add this set of Controls right under the previous
     cNewTextText := "Plain Text:",
-    cNewEditOptions := "ReadOnly" . og_clipboard_edit_opt_str
+    cNewEditOptions := defaultClipboardToolNewEditOptions
 )
 
 AddToolControls(
@@ -42,7 +42,7 @@ AddToolControls(
     guiObject := App,
     cNewTextOptions := "", ; Add this set of Controls right under the previous
     cNewTextText := "Uppercase:",
-    cNewEditOptions := "ReadOnly" . og_clipboard_edit_opt_str
+    cNewEditOptions := defaultClipboardToolNewEditOptions
 )
 
 AddToolControls(
@@ -50,7 +50,15 @@ AddToolControls(
     guiObject := App,
     cNewTextOptions := "Section ys", ; Start a new column within this section. - NOT ACTUALLY SURE WHAT SECTION DOES
     cNewTextText := "Lowercase:",
-    cNewEditOptions := "ReadOnly" . og_clipboard_edit_opt_str
+    cNewEditOptions := defaultClipboardToolNewEditOptions
+)
+
+AddToolControls(
+    toolOutputStr := Trim(cb),
+    guiObject := App,
+    cNewTextOptions := "", ; Add this set of Controls right under the previous
+    cNewTextText := "Trim:",
+    cNewEditOptions := defaultClipboardToolNewEditOptions
 )
 
 AddToolControls(
@@ -58,7 +66,7 @@ AddToolControls(
     guiObject := App,
     cNewTextOptions := "Section ys", ; Start a new column within this section. - NOT ACTUALLY SURE WHAT SECTION DOES
     cNewTextText := "ClipboardHistoryItem:",
-    cNewEditOptions := "ReadOnly" . og_clipboard_edit_opt_str
+    cNewEditOptions := defaultClipboardToolNewEditOptions
 )
 
 
