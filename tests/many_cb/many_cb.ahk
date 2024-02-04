@@ -11,7 +11,7 @@ You can run this script on its own, or from your main script with
 
     Run "autohotkey.exe " . A_WorkingDir . "\Lib\GUIs\Upcaser.ahk"
 
-Keeping GUIs separate is good unless they need to share information with the main script.     f      
+Keeping GUIs separate is good unless they need to share information with the main script.
 
 READ MORE:
     - https://www.autohotkey.com/docs/v2/lib/Gui.htm
@@ -19,6 +19,9 @@ READ MORE:
     - https://www.autohotkey.com/docs/v2/lib/GuiControls.htm
 */
 MAX_WINDOWS_CLIPBOARD_HISTORY_ITEMS := 25
+
+C_NEW_TEXT_OPTIONTS__INSERT_UNDER_PREVIOUS := ""
+C_NEW_TEXT_OPTIONTS__START_NEW_COLUMN := "Section ys" ; Start a new column within this section. - NOT ACTUALLY SURE WHAT SECTION DOES
 
 cb := A_Clipboard
 
@@ -30,42 +33,42 @@ defaultClipboardToolNewEditOptions := " ReadOnly r8 w300 -Wrap "
 
 
 AddToolControls(
-    toolOutputStr := cb,
-    guiObject := App,
-    cNewTextOptions := "", ; Add this set of Controls right under the previous
-    cNewTextText := "Plain Text:",
+    toolOutputStr   := cb,
+    guiObject       := App,
+    cNewTextOptions := C_NEW_TEXT_OPTIONTS__INSERT_UNDER_PREVIOUS,
+    cNewTextText    := "Plain Text:",
     cNewEditOptions := defaultClipboardToolNewEditOptions
 )
 
 AddToolControls(
-    toolOutputStr := StrUpper(cb),
-    guiObject := App,
-    cNewTextOptions := "", ; Add this set of Controls right under the previous
-    cNewTextText := "Uppercase:",
+    toolOutputStr   := StrUpper(cb),
+    guiObject       := App,
+    cNewTextOptions := C_NEW_TEXT_OPTIONTS__INSERT_UNDER_PREVIOUS,
+    cNewTextText    := "Uppercase:",
     cNewEditOptions := defaultClipboardToolNewEditOptions
 )
 
 AddToolControls(
-    toolOutputStr := StrLower(cb),
-    guiObject := App,
-    cNewTextOptions := "Section ys", ; Start a new column within this section. - NOT ACTUALLY SURE WHAT SECTION DOES
-    cNewTextText := "Lowercase:",
+    toolOutputStr   := StrLower(cb),
+    guiObject       := App,
+    cNewTextOptions := C_NEW_TEXT_OPTIONTS__START_NEW_COLUMN,
+    cNewTextText    := "Lowercase:",
     cNewEditOptions := defaultClipboardToolNewEditOptions
 )
 
 AddToolControls(
-    toolOutputStr := Trim(cb),
-    guiObject := App,
-    cNewTextOptions := "", ; Add this set of Controls right under the previous
-    cNewTextText := "Trim:",
+    toolOutputStr   := Trim(cb),
+    guiObject       := App,
+    cNewTextOptions := C_NEW_TEXT_OPTIONTS__INSERT_UNDER_PREVIOUS,
+    cNewTextText    := "Trim:",
     cNewEditOptions := defaultClipboardToolNewEditOptions
 )
 
 AddToolControls(
-    toolOutputStr := GetCombinedClipboardHistoryItemText(),
-    guiObject := App,
-    cNewTextOptions := "Section ys", ; Start a new column within this section. - NOT ACTUALLY SURE WHAT SECTION DOES
-    cNewTextText := "ClipboardHistoryItem:",
+    toolOutputStr   := GetCombinedClipboardHistoryItemText(),
+    guiObject       := App,
+    cNewTextOptions := C_NEW_TEXT_OPTIONTS__START_NEW_COLUMN,
+    cNewTextText    := "ClipboardHistoryItem:",
     cNewEditOptions := defaultClipboardToolNewEditOptions
 )
 
