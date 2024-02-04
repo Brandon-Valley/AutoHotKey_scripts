@@ -52,7 +52,7 @@ AddToolControls(
 AddToolControls(
     toolOutputStr   := StrLower(cb),
     guiObject       := App,
-    cNewTextOptions := C_NEW_TEXT_OPTIONTS__START_NEW_COLUMN,
+    cNewTextOptions := C_NEW_TEXT_OPTIONTS__INSERT_UNDER_PREVIOUS,
     cNewTextText    := "Lowercase:",
     cNewEditOptions := defaultClipboardToolNewEditOptions
 )
@@ -60,7 +60,7 @@ AddToolControls(
 AddToolControls(
     toolOutputStr   := Trim(cb),
     guiObject       := App,
-    cNewTextOptions := C_NEW_TEXT_OPTIONTS__INSERT_UNDER_PREVIOUS,
+    cNewTextOptions := C_NEW_TEXT_OPTIONTS__START_NEW_COLUMN,
     cNewTextText    := "Trim:",
     cNewEditOptions := defaultClipboardToolNewEditOptions
 )
@@ -70,6 +70,14 @@ AddToolControls(
     guiObject       := App,
     cNewTextOptions := C_NEW_TEXT_OPTIONTS__INSERT_UNDER_PREVIOUS,
     cNewTextText    := "Remove Quotes",
+    cNewEditOptions := defaultClipboardToolNewEditOptions
+)
+
+AddToolControls(
+    toolOutputStr   := StrReplace(cb, ",", ""),
+    guiObject       := App,
+    cNewTextOptions := C_NEW_TEXT_OPTIONTS__INSERT_UNDER_PREVIOUS,
+    cNewTextText    := "Remove Commas",
     cNewEditOptions := defaultClipboardToolNewEditOptions
 )
 
