@@ -23,7 +23,7 @@ READ MORE:
 
 MAX_WINDOWS_CLIPBOARD_HISTORY_ITEMS := 25
 
-; cb := Clipboard
+cb := A_Clipboard
 
 
 App := Gui("Resize", "Clipboard Tools")
@@ -31,12 +31,11 @@ App.SetFont("s12")
 
 og_clipboard_edit_opt_str := " r8 w300 -Wrap "
 
-App.AddText(, "Original Clipboard:")
-cClipboardEdit := App.AddEdit("ReadOnly " . og_clipboard_edit_opt_str) ;GUI widgets are called "controls", hence "cClipboardEdit"
-cClipboardEdit.SetFont(, "Consolas")
-cb := A_Clipboard
+; App.AddText(, "Original Clipboard:")
+; cClipboardEdit := App.AddEdit("ReadOnly " . og_clipboard_edit_opt_str) ;GUI widgets are called "controls", hence "cClipboardEdit"
+; cClipboardEdit.SetFont(, "Consolas")
 
-cb := A_Clipboard
+
 
 AddToolControls(
     toolOutputStr := cb,
@@ -64,27 +63,14 @@ AddToolControls(
     cNewEditOptions := "ReadOnly" . og_clipboard_edit_opt_str
 )
 
+AddToolControls(
+    toolOutputStr := GetCombinedClipboardHistoryItemText(),
+    guiObject := App,
+    cNewTextOptions := "Section ys", ; Start a new column within this section. - NOT ACTUALLY SURE WHAT SECTION DOES
+    cNewTextText := "ClipboardHistoryItem:",
+    cNewEditOptions := "ReadOnly" . og_clipboard_edit_opt_str
+)
 
-; Test
-
-App.AddText(,"Test:") ; Start a new column within this section.
-cOutputEdit := App.AddEdit("ReadOnly" . og_clipboard_edit_opt_str)
-cOutputEdit.SetFont(, "Consolas")
-
-tst:=ClipboardHistory.GetHistoryItemText(2)
-cOutputEdit.value := tst
-
-; Test2
-
-App.AddText(,"GetCombinedClipboardHistoryItemText Test:") ; Start a new column within this section.
-cOutputEdit := App.AddEdit("ReadOnly" . og_clipboard_edit_opt_str)
-cOutputEdit.SetFont(, "Consolas")
-
-tst:=ClipboardHistory.GetHistoryItemText(2)
-cOutputEdit.value := GetCombinedClipboardHistoryItemText()
-
-
-; AddToolControls(toolOutputStr, guiObject, cNewTextOptions, cNewTextText, cNewEditOptions, cNewEditFontName := "Consolas") => Gui.Edit
 
 /**
 * Function: AddToolControls
