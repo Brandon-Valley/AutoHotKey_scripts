@@ -1,0 +1,40 @@
+
+
+foo
+bar
+baz
+
+"foo"
+"bar"
+"baz"
+
+"foo": "qux"
+"bar": "bob"
+"baz": "joe"
+
+"foo": "qux",
+"bar": "bob",
+"baz": "joe"
+
+   "foo": "qux",  
+"bar":    "bob",
+ "baz"  :   "joe"  
+
+"foo",
+"bar",
+"baz",
+
+   
+    
+"foo",
+"bar",
+"baz"
+  
+   
+
+  foo   
+bar  
+ baz
+
+
+foobar, foo, bar, baz, qux, quux, corge, grault, garply, waldo, fred, plugh, xyzzy, and thud

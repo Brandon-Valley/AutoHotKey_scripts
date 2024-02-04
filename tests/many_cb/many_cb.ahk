@@ -5,6 +5,7 @@
 #SingleInstance Force ; No others
 
 #Include ClipboardHistory.ahk
+#Include StrUtils.ahk
 
 /* A simple demo of how easy it is to write a GUI in AHK. This will allcaps any string you copy into the input.
 You can run this script on its own, or from your main script with
@@ -65,12 +66,31 @@ AddToolControls(
 )
 
 AddToolControls(
+    toolOutputStr   := MultiStrRemove(cb, ["`"", "'"]),
+    guiObject       := App,
+    cNewTextOptions := C_NEW_TEXT_OPTIONTS__INSERT_UNDER_PREVIOUS,
+    cNewTextText    := "Remove Quotes",
+    cNewEditOptions := defaultClipboardToolNewEditOptions
+)
+
+AddToolControls(
     toolOutputStr   := GetCombinedClipboardHistoryItemText(),
     guiObject       := App,
     cNewTextOptions := C_NEW_TEXT_OPTIONTS__START_NEW_COLUMN,
     cNewTextText    := "ClipboardHistoryItem:",
     cNewEditOptions := defaultClipboardToolNewEditOptions
 )
+
+; cClipboardEdit.OnEvent("Change", UpdateOutput) ; Triggered every time you type into the top box
+App.OnEvent("Close", (*) => ExitApp(0))
+App.OnEvent("Escape", (*) => ExitApp(0)) ; Close when you hit esc
+
+App.Show()
+
+; Separate scripts can have hotkeys, too. 
+; Below hotkey will be removed when ExitApp is called.
+3::MsgBox("This will be unbound when ExitApp(0) is called")
+
 
 
 /**
@@ -110,16 +130,3 @@ GetCombinedClipboardHistoryItemText(endStr := "---", cbItemSeperator := "`n", re
     }
     return returnIfEndNotFound
 }
-
-
-
-; cClipboardEdit.OnEvent("Change", UpdateOutput) ; Triggered every time you type into the top box
-App.OnEvent("Close", (*) => ExitApp(0))
-App.OnEvent("Escape", (*) => ExitApp(0)) ; Close when you hit esc
-
-App.Show()
-
-
-; Separate scripts can have hotkeys, too. 
-; Below hotkey will be removed when ExitApp is called.
-3::MsgBox("This will be unbound when ExitApp(0) is called")
