@@ -77,21 +77,27 @@ AddToolControls(
     cNewEditOptions := defaultClipboardToolNewEditOptions
 )
 
-AddToolControls(
-    toolOutputStr   := StrReplace(cb, ",", ""),
-    guiObject       := App,
-    cNewTextOptions := C_NEW_TEXT_OPTIONTS__INSERT_UNDER_PREVIOUS,
-    cNewTextText    := "Remove Commas",
-    cNewEditOptions := defaultClipboardToolNewEditOptions
-)
-
-; VisualClipboardTool(
-;     toolFunc        := GetClipboardWithCommasRemoved,
+; AddToolControls(
+;     toolOutputStr   := StrReplace(cb, ",", ""),
 ;     guiObject       := App,
-;     cNewTextOptions := C_NEW_TEXT_OPTIONTS__START_NEW_COLUMN,
-;     cNewTextText    := "ClipboardHistoryItem:",
+;     cNewTextOptions := C_NEW_TEXT_OPTIONTS__INSERT_UNDER_PREVIOUS,
+;     cNewTextText    := "Remove Commas",
 ;     cNewEditOptions := defaultClipboardToolNewEditOptions
 ; )
+
+
+substrings := [cb, ",", ""]
+; substrings := ["one", "two", "three"]
+; MsgBox Join("`n", substrings*)
+
+VisualClipboardTool(
+    guiObject              := App,
+    cNewTextOptions        := C_NEW_TEXT_OPTIONTS__INSERT_UNDER_PREVIOUS,
+    cNewEditOptions        := defaultClipboardToolNewEditOptions,
+    cNewTextText           := "Remove Commas:",
+    toolFunc               := StrReplace,
+    optionalToolFuncParams := substrings
+)
 
 VisualClipboardTool(
     guiObject       := App,

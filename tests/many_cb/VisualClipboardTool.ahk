@@ -28,22 +28,19 @@ class VisualClipboardTool
         cNewEdit := guiObject.AddEdit(cNewEditOptions)
         cNewEdit.SetFont(, DEFAULT_EDIT_FONT_NAME)
 
-        RunToolFunc() {
-            if IsSet(optionalToolFuncParams) {
-                return toolFunc(optionalToolFuncParams)
-            }
-            else {
-                return toolFunc()
-            }
-        }
-        
-        ; UpdateEditControlValue(unusedParamNeededForOnClipboardChange) {
-        ;     cNewEdit.value := RunToolFunc()
+        ; RunToolFunc() {
+        ;     if IsSet(optionalToolFuncParams) {
+        ;         return toolFunc(optionalToolFuncParams*)
+        ;     }
+        ;     else {
+        ;         return toolFunc()
+        ;     }
         ; }
+
         
         UpdateEditControlValue(unusedParamNeededForOnClipboardChange?) {
             if IsSet(optionalToolFuncParams) {
-                cNewEdit.value :=  toolFunc(optionalToolFuncParams)
+                cNewEdit.value :=  toolFunc(optionalToolFuncParams*)
             }
             else {
                 cNewEdit.value :=  toolFunc()
