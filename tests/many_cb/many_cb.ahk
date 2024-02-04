@@ -43,14 +43,28 @@ cOutputEdit.SetFont(, "Consolas")
 cOutputEdit.value := StrUpper(cClipboardEdit.value)
 
 ; Lowercase
-App.AddText("Section ys","Lowercase:") ; Start a new column within this section.
+App.AddText("Section ys","LowercaseOG:") ; Start a new column within this section.
 ; App.AddEdit("ys","Lowercase:") ; Start a new column within this section.
 cOutputEdit := App.AddEdit("ReadOnly" . og_clipboard_edit_opt_str)
 cOutputEdit.SetFont(, "Consolas")
 
 cOutputEdit.value := StrLower(cClipboardEdit.value)
 
+; ; Lowercase
+; App.AddText("Section ys","Lowercase:") ; Start a new column within this section.
+; ; App.AddEdit("ys","Lowercase:") ; Start a new column within this section.
+; cOutputEdit := App.AddEdit("ReadOnly" . og_clipboard_edit_opt_str)
+; cOutputEdit.SetFont(, "Consolas")
 
+cOutputEdit.value := StrLower(cClipboardEdit.value)
+
+AddToolControls(
+    toolOutputStr := StrLower(cClipboardEdit.value),
+    guiObject := App,
+    cNewTextOptions := "Section ys", ; Start a new column within this section. - NOT ACTUALLY SURE WHAT SECTION DOES
+    cNewTextText := "Lowercase:",
+    cNewEditOptions := "ReadOnly" . og_clipboard_edit_opt_str
+)
 
 
 ; Test
@@ -72,8 +86,8 @@ tst:=ClipboardHistory.GetHistoryItemText(2)
 cOutputEdit.value := GetCombinedClipboardHistoryItemText()
 
 
-
-
+; ==================================================================================================
+; Function: AddToolControls
 ; @param titleTextControlOptions Options:
 ;   V: Sets the control's Name.
 ;   Pos: xn yn wn hn rn Right Left Center Section VScroll HScroll
@@ -85,6 +99,7 @@ cOutputEdit.value := GetCombinedClipboardHistoryItemText()
 ;   Theme 
 ;   Disabled 
 ;   Hidden
+; ==================================================================================================
 AddToolControls(toolOutputStr, guiObject, cNewTextOptions, cNewTextText, cNewEditOptions, cNewEditFontName := "Consolas") {
     cNewText := guiObject.AddText(cNewTextOptions, cNewTextText)
     ; cOutputEdit := guiObject.AddEdit("ReadOnly" . og_clipboard_edit_opt_str)
