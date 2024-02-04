@@ -2,6 +2,9 @@
 ; https://www.hillelwayne.com/post/ahk-scripts-project/
 
 #Requires AutoHotkey v2.0
+#SingleInstance Force ; No others
+
+#Include ClipboardHistory.ahk
 
 /* A simple demo of how easy it is to write a GUI in AHK. This will allcaps any string you copy into the input.
 You can run this script on its own, or from your main script with
@@ -15,12 +18,6 @@ READ MORE:
     - https://www.autohotkey.com/docs/v2/lib/GuiOnEvent.htm
     - https://www.autohotkey.com/docs/v2/lib/GuiControls.htm
 */
-
-
-
-#SingleInstance Force ; No others
-#Include ClipboardHistory.ahk
-
 MAX_WINDOWS_CLIPBOARD_HISTORY_ITEMS := 25
 
 cb := A_Clipboard
@@ -31,11 +28,6 @@ App.SetFont("s12")
 
 og_clipboard_edit_opt_str := " r8 w300 -Wrap "
 
-; App.AddText(, "Original Clipboard:")
-; cClipboardEdit := App.AddEdit("ReadOnly " . og_clipboard_edit_opt_str) ;GUI widgets are called "controls", hence "cClipboardEdit"
-; cClipboardEdit.SetFont(, "Consolas")
-
-
 
 AddToolControls(
     toolOutputStr := cb,
@@ -44,8 +36,6 @@ AddToolControls(
     cNewTextText := "Plain Text:",
     cNewEditOptions := "ReadOnly" . og_clipboard_edit_opt_str
 )
-
-
 
 AddToolControls(
     toolOutputStr := StrUpper(cb),
@@ -121,5 +111,4 @@ App.Show()
 
 ; Separate scripts can have hotkeys, too. 
 ; Below hotkey will be removed when ExitApp is called.
-
-NumpadRight::MsgBox("This will be unbound when ExitApp(0) is called")
+3::MsgBox("This will be unbound when ExitApp(0) is called")
