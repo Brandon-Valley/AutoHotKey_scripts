@@ -85,21 +85,20 @@ AddToolControls(
     cNewEditOptions := defaultClipboardToolNewEditOptions
 )
 
-; AddToolControls(
-;     toolOutputStr   := GetCombinedClipboardHistoryItemText(),
+; VisualClipboardTool(
+;     toolFunc        := GetClipboardWithCommasRemoved,
 ;     guiObject       := App,
 ;     cNewTextOptions := C_NEW_TEXT_OPTIONTS__START_NEW_COLUMN,
 ;     cNewTextText    := "ClipboardHistoryItem:",
 ;     cNewEditOptions := defaultClipboardToolNewEditOptions
 ; )
 
-
 VisualClipboardTool(
-    toolOutputStr   := GetCombinedClipboardHistoryItemText,
     guiObject       := App,
     cNewTextOptions := C_NEW_TEXT_OPTIONTS__START_NEW_COLUMN,
+    cNewEditOptions := defaultClipboardToolNewEditOptions,
     cNewTextText    := "ClipboardHistoryItem:",
-    cNewEditOptions := defaultClipboardToolNewEditOptions
+    toolFunc        := GetCombinedClipboardHistoryItemText
 )
 
 

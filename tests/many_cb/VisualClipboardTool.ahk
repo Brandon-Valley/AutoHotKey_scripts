@@ -1,6 +1,6 @@
 #Requires AutoHotkey v2.0
 
-
+DEFAULT_EDIT_FONT_NAME := "Consolas"
 class VisualClipboardTool
 {
 ; ; properties
@@ -18,71 +18,20 @@ class VisualClipboardTool
 ;     static GetAvailableFormats(index)         => CBH_API.GetAvailableFormats(index)
 
 
+    ; Edit Control value is updated with return of toolFunc on each clipboard change
+    ; __new(guiObject, cNewTextOptions, cNewTextText, cNewEditOptions, toolFunc, optionalToolFuncParams := unset) {
+    __new(guiObject, cNewTextOptions, cNewEditOptions, cNewTextText, toolFunc) {
+        ; this.toolFunc = toolFunc
 
-    __new(func, guiObject, cNewTextOptions, cNewTextText, cNewEditOptions, cNewEditFontName := "Consolas") {
+
         cNewText := guiObject.AddText(cNewTextOptions, cNewTextText)
         cNewEdit := guiObject.AddEdit(cNewEditOptions)
-        cNewEdit.SetFont(, cNewEditFontName)
+        cNewEdit.SetFont(, DEFAULT_EDIT_FONT_NAME)
         
         UpdateEditControlValue(unusedParamNeededForOnClipboardChange) {
-            ; cNewEdit.value := "CLIPBOARD UPDATED"
-            cNewEdit.value := func()
+            ; cNewEdit.value := toolFunc(optionalToolFuncParams)
+            cNewEdit.value := toolFunc()
         }
         OnClipboardChange UpdateEditControlValue
-
-        
-
-        ; ; cNewEdit.value := func.Call()
-        
-
-
-
-        ; ; OnClipboardChange UpdateEditControlValue
-        ; ; OnClipboardChange func.Call()
-
-
-
-        ; ; Define a function that takes another function as a parameter
-        ; PerformOperation(func, x, y) {
-        ;     ; Call the passed function with the provided arguments
-        ;     return func.Call(x, y)
-        ; }
-
-        ; ; Define a function to be passed as a parameter
-        ; Add(x, y) {
-        ;     return x + y
-        ; }
-
-        ; ; Define a function to be called when the clipboard changes
-        ; Update() {
-
-        ;     cNewEdit.value := "CLIPBOARD UPDATED"
-        ;     ; Call PerformOperation with the Add function and some arguments
-        ;     result := PerformOperation(Func("Add"), 5, 3)
-
-        ;     ; Display the result
-        ;     MsgBox result  ; Displays 8
-        ; }
-
-        ; ; Set the OnClipboardChange function to be called when the clipboard changes
-        ; OnClipboardChange := Update
-
     }
-
 }
-
-; class ClipboardTool {
-;     static __new(toolOutputStr, guiObject, cNewTextOptions, cNewTextText, cNewEditOptions, cNewEditFontName := "Consolas") {
-
-;         this.name := AppName
-
-;     }
-   
-;     static Msg() {
-
-;         MsgBox("My application name is: " this.name)
-
-;     }
-
-
-; } 
