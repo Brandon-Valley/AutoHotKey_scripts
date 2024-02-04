@@ -30,6 +30,9 @@ cb := A_Clipboard
 App := Gui("Resize", "Clipboard Tools")
 App.SetFont("s12")
 
+; OnClipboardChange:
+;     MsgBox "Hello!"
+
 defaultClipboardToolNewEditOptions := " ReadOnly r8 w300 -Wrap "
 
 
