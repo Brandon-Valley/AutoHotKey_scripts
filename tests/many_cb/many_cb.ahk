@@ -69,26 +69,26 @@ AddToolControls(
     cNewEditOptions := defaultClipboardToolNewEditOptions
 )
 
-AddToolControls(
-    toolOutputStr   := MultiStrRemove(cb, ["`"", "'"]),
-    guiObject       := App,
-    cNewTextOptions := C_NEW_TEXT_OPTIONTS__INSERT_UNDER_PREVIOUS,
-    cNewTextText    := "Remove Quotes",
-    cNewEditOptions := defaultClipboardToolNewEditOptions
-)
-
 ; AddToolControls(
-;     toolOutputStr   := StrReplace(cb, ",", ""),
+;     toolOutputStr   := MultiStrRemove(cb, ["`"", "'"]),
 ;     guiObject       := App,
 ;     cNewTextOptions := C_NEW_TEXT_OPTIONTS__INSERT_UNDER_PREVIOUS,
-;     cNewTextText    := "Remove Commas",
+;     cNewTextText    := "Remove Quotes",
 ;     cNewEditOptions := defaultClipboardToolNewEditOptions
 ; )
 
 
-substrings := [cb, ",", ""]
-; substrings := ["one", "two", "three"]
-; MsgBox Join("`n", substrings*)
+
+
+VisualClipboardTool(
+    guiObject              := App,
+    cNewTextOptions        := C_NEW_TEXT_OPTIONTS__INSERT_UNDER_PREVIOUS,
+    cNewEditOptions        := defaultClipboardToolNewEditOptions,
+    cNewTextText           := "Remove Quotes",
+    toolFunc               := MultiStrRemove,
+    optionalToolFuncParams := [A_Clipboard, ["`"", "'"]]
+)
+
 
 VisualClipboardTool(
     guiObject              := App,
@@ -96,7 +96,7 @@ VisualClipboardTool(
     cNewEditOptions        := defaultClipboardToolNewEditOptions,
     cNewTextText           := "Remove Commas:",
     toolFunc               := StrReplace,
-    optionalToolFuncParams := substrings
+    optionalToolFuncParams := [A_Clipboard, ",", ""]
 )
 
 VisualClipboardTool(
