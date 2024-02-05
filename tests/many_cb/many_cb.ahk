@@ -37,9 +37,15 @@ defaultClipboardToolNewEditOptions := " ReadOnly r8 w300 -Wrap "
 ; ==================================================
 ; Set title & placement of each VisualClipboardTool
 ; ==================================================
-ShowCurrentPlainTextTool := VisualClipboardTool(
+ShowOriginalClipboardTool := VisualClipboardTool(
     guiObject              := App,
     cNewTextOptions        := C_NEW_TEXT_OPTIONTS__INSERT_UNDER_PREVIOUS,
+    cNewEditOptions        := defaultClipboardToolNewEditOptions,
+    cNewTextText           := "Original Clipboard:",
+)
+ShowCurrentPlainTextTool := VisualClipboardTool(
+    guiObject              := App,
+    cNewTextOptions        := C_NEW_TEXT_OPTIONTS__START_NEW_COLUMN,
     cNewEditOptions        := defaultClipboardToolNewEditOptions,
     cNewTextText           := "Current as Plain-Text:",
 )
@@ -103,6 +109,12 @@ UpdateVisualClipboardTools(unusedParamNeededForOnClipboardChange?) {
 
     ShowClipboardHistoryItemTool.Update(GetCombinedClipboardHistoryItemText())
 }
+
+
+; ====================================================
+; Set value for tools that dont change during runtime
+; ====================================================
+ShowOriginalClipboardTool.Update(A_Clipboard)
 
 ;==============================================================
 ; Configure how / when all tools will be updated (all at once)
