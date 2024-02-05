@@ -78,3 +78,57 @@ GetStrAfterAppliedFuncToEachSeperatedSection(originalStr, func, sep := "`n") {
     }
     return SubStr(newStr, 1, -StrLen(sep))
 }
+
+
+
+
+
+
+
+
+StrJoin(delimiter, arr) {
+    ; Initialize an empty string
+    str := ""
+
+    ; Iterate over each item in the array
+    for index, item in arr {
+        ; Add the item to the string
+        str .= item
+
+        ; If this is not the last item, add the delimiter
+        if (index < arr.Length)
+            str .= delimiter
+    }
+
+    ; Return the joined string
+    return str
+}
+
+
+AlignStr(originalStr, targetStr) {
+    ; Split the string into lines
+    lines := StrSplit(originalStr, "`n", "`r")
+
+    ; Initialize the maximum length
+    maxLength := 0
+
+    ; Find the maximum length before the targetStr character
+    for line in lines {
+        parts := StrSplit(line, targetStr)
+        if (parts.Length >= 2 && StrLen(Trim(parts[1])) > maxLength)
+            maxLength := StrLen(Trim(parts[1]))
+    }
+
+    ; Align each line based on the targetStr character
+    for index, line in lines {
+        parts := StrSplit(line, targetStr)
+        if (parts.Length >= 2)
+            lines[index] := Format("{: " maxLength "} " targetStr " {}", Trim(parts[1]), Trim(parts[2]))
+    }
+
+    ; Join the lines back into a string
+    alignedStr := StrJoin("`n", lines)
+
+    return alignedStr
+}
+

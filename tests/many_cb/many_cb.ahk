@@ -1,6 +1,11 @@
 ﻿
 ; https://www.hillelwayne.com/post/ahk-scripts-project/
 
+; TODO
+; - alighn
+
+
+
 #Requires AutoHotkey v2.0
 #SingleInstance Force ; No others
 
@@ -32,7 +37,7 @@ App := Gui("Resize", "Clipboard Tools")
 App.SetFont("s12")
 
 
-defaultClipboardToolNewEditOptions := " ReadOnly r5 w400 -Wrap "
+defaultClipboardToolNewEditOptions := " ReadOnly r4 w400 -Wrap "
 
 ; ==================================================
 ; Set title & placement of each VisualClipboardTool
@@ -50,6 +55,13 @@ ShowClipboardHistoryItemTool := VisualClipboardTool(
     cNewTextOptions        := C_NEW_TEXT_OPTIONTS__INSERT_UNDER_PREVIOUS,
     cNewEditOptions        := defaultClipboardToolNewEditOptions,
     cNewTextText           := "ClipboardHistoryItem:",
+)
+; Align
+AlignTool := VisualClipboardTool(
+    guiObject              := App,
+    cNewTextOptions        := C_NEW_TEXT_OPTIONTS__INSERT_UNDER_PREVIOUS,
+    cNewEditOptions        := defaultClipboardToolNewEditOptions,
+    cNewTextText           := "Align:",
 )
 
 ; Format
@@ -125,6 +137,9 @@ AddDictLeftTool := VisualClipboardTool(
 )
 
 
+
+
+
 ; =====================================================================
 ; Define how each tool will be updated during runtime loop
 ; =====================================================================
@@ -151,6 +166,9 @@ UpdateVisualClipboardTools(unusedParamNeededForOnClipboardChange?) {
     AddCommasTool.Update(GetStrAfterAddStrtoEndOfEachLine(cb, ","))
 
     AddDictRightTool.Update(GetStrAddedToDict(cb, "right"))
+    AddDictLeftTool.Update(GetStrAddedToDict(cb, "left"))
+
+    AlignTool.Update(AlignStr(cb, ":"))
 
 }
 
@@ -204,6 +222,7 @@ GetCombinedClipboardHistoryItemText(endStr := "---", cbItemSeperator := "`n", re
     return returnIfEndNotFound
 }
 
+; TODO play with other params
 GetStrAddedToDict(mainStr, sideToInsertMainStr := "right", otherSideStr := "`"`"", indentStr := "", wrapCurlyBraces := 0) {
     workStr := mainStr
     if (sideToInsertMainStr == "right") {
@@ -213,6 +232,7 @@ GetStrAddedToDict(mainStr, sideToInsertMainStr := "right", otherSideStr := "`"`"
         _Func(line) {
             return otherSideStr . " : " . workStr . ","
         }
+        workStr := GetStrAfterAppliedFuncToEachLine(workStr, _Func)
     }
     else 
         throw Error("Invalid sideToInsertMainStr:" . sideToInsertMainStr, -1)
