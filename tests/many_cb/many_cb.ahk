@@ -32,11 +32,13 @@ App := Gui("Resize", "Clipboard Tools")
 App.SetFont("s12")
 
 
-defaultClipboardToolNewEditOptions := " ReadOnly r8 w300 -Wrap "
+defaultClipboardToolNewEditOptions := " ReadOnly r5 w400 -Wrap "
 
 ; ==================================================
 ; Set title & placement of each VisualClipboardTool
 ; ==================================================
+
+; Special
 ShowOriginalClipboardTool := VisualClipboardTool(
     guiObject              := App,
     cNewTextOptions        := C_NEW_TEXT_OPTIONTS__INSERT_UNDER_PREVIOUS,
@@ -50,7 +52,7 @@ ShowClipboardHistoryItemTool := VisualClipboardTool(
     cNewTextText           := "ClipboardHistoryItem:",
 )
 
-
+; Format
 ShowCurrentPlainTextTool := VisualClipboardTool(
     guiObject              := App,
     cNewTextOptions        := C_NEW_TEXT_OPTIONTS__START_NEW_COLUMN,
@@ -70,7 +72,7 @@ ShowLowercaseTool := VisualClipboardTool(
     cNewTextText           := "Lowercase:",
 )
 
-
+; Remove
 TrimTool := VisualClipboardTool(
     guiObject              := App,
     cNewTextOptions        := C_NEW_TEXT_OPTIONTS__START_NEW_COLUMN,
@@ -90,19 +92,36 @@ RemoveCommasTool := VisualClipboardTool(
     cNewTextText           := "Remove Commas:",
 )
 
-
+; Add
 AddDoubleQuotesTool := VisualClipboardTool(
     guiObject              := App,
     cNewTextOptions        := C_NEW_TEXT_OPTIONTS__START_NEW_COLUMN,
     cNewEditOptions        := defaultClipboardToolNewEditOptions,
     cNewTextText           := "Add Double Quotes:",
 )
-
 AddSingleQuotesTool := VisualClipboardTool(
     guiObject              := App,
     cNewTextOptions        := C_NEW_TEXT_OPTIONTS__INSERT_UNDER_PREVIOUS,
     cNewEditOptions        := defaultClipboardToolNewEditOptions,
     cNewTextText           := "Add Single Quotes:",
+)
+AddCommasTool := VisualClipboardTool(
+    guiObject              := App,
+    cNewTextOptions        := C_NEW_TEXT_OPTIONTS__INSERT_UNDER_PREVIOUS,
+    cNewEditOptions        := defaultClipboardToolNewEditOptions,
+    cNewTextText           := "Add Commas",
+)
+AddDictRightTool := VisualClipboardTool(
+    guiObject              := App,
+    cNewTextOptions        := C_NEW_TEXT_OPTIONTS__INSERT_UNDER_PREVIOUS,
+    cNewEditOptions        := defaultClipboardToolNewEditOptions,
+    cNewTextText           := "Add Dict - Right",
+)
+AddDictLeftTool := VisualClipboardTool(
+    guiObject              := App,
+    cNewTextOptions        := C_NEW_TEXT_OPTIONTS__INSERT_UNDER_PREVIOUS,
+    cNewEditOptions        := defaultClipboardToolNewEditOptions,
+    cNewTextText           := "Add Dict - Left",
 )
 
 
@@ -128,6 +147,10 @@ UpdateVisualClipboardTools(unusedParamNeededForOnClipboardChange?) {
 
     AddDoubleQuotesTool.Update(GetStrAfterWrapEachLineWithStr(cb, "`""))
     AddSingleQuotesTool.Update(GetStrAfterWrapEachLineWithStr(cb, "'"))
+
+    AddCommasTool.Update(GetStrAfterAddStrtoEndOfEachLine(cb, ","))
+
+    AddDictRightTool.Update(GetStrAddedToDict(cb, "right"))
 
 }
 
@@ -161,18 +184,16 @@ App.Show()
 ; Below hotkey will be removed when ExitApp is called.
 3::MsgBox("This will be unbound when ExitApp(0) is called")
 
+
 ; ######################################################################################################################
 ; Methods
 ; ######################################################################################################################
-
-
-
 
 GetCombinedClipboardHistoryItemText(endStr := "---", cbItemSeperator := "`n", returnIfEndNotFound := "") {
     resultStr := ""
     cbItemText := ""
     i := 1
-    while(i <= MAX_WINDOWS_CLIPBOARD_HISTORY_ITEMS){
+    while(i < MAX_WINDOWS_CLIPBOARD_HISTORY_ITEMS){
         cbItemText := ClipboardHistory.GetHistoryItemText(i)
         if (cbItemText == endStr){
             return resultStr
@@ -181,4 +202,20 @@ GetCombinedClipboardHistoryItemText(endStr := "---", cbItemSeperator := "`n", re
         i := i + 1
     }
     return returnIfEndNotFound
+}
+
+GetStrAddedToDict(mainStr, sideToInsertMainStr := "right", otherSideStr := "`"`"", indentStr := "", wrapCurlyBraces := 0) {
+    workStr := mainStr
+    if (sideToInsertMainStr == "right") {
+        workStr := GetStrAfterAddStrToEndOfEachLine(workStr, " : " . otherSideStr . ",") 
+    }
+    else if (sideToInsertMainStr == "left") {
+        _Func(line) {
+            return otherSideStr . " : " . workStr . ","
+        }
+    }
+    else 
+        throw Error("Invalid sideToInsertMainStr:" . sideToInsertMainStr, -1)
+
+    return workStr
 }

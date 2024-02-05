@@ -38,6 +38,28 @@ GetStrAfterWrapEachLineWithStr(originalStr, wrapStr) {
     return GetStrAfterWrapEachSeperatedSectionWithStr(originalStr, wrapStr, sep:= "`n")
 }
 
+GetStrAfterAddStrToEndOfEachLine(originalStr, AddStr, sep:= "`n") {
+    return GetStrAfterAddStrToEndOfEachSeperatedSectionWithStr(originalStr, AddStr, sep:= "`n")
+}
+
+GetStrAfterAddStrToStartOfEachLine(originalStr, AddStr, sep:= "`n") {
+    return GetStrAfterAddStrToStartOfEachSeperatedSectionWithStr(originalStr, AddStr, sep:= "`n")
+}
+
+GetStrAfterAddStrToStartOfEachSeperatedSectionWithStr(originalStr, AddStr, sep:= "`n") {
+    _Func(line) {
+        return AddStr . line
+    }
+    return GetStrAfterAppliedFuncToEachSeperatedSection(originalStr, _Func, sep)
+}
+
+GetStrAfterAddStrToEndOfEachSeperatedSectionWithStr(originalStr, AddStr, sep:= "`n") {
+    _Func(line) {
+        return line . AddStr
+    }
+    return GetStrAfterAppliedFuncToEachSeperatedSection(originalStr, _Func, sep)
+}
+
 GetStrAfterWrapEachSeperatedSectionWithStr(originalStr, wrapStr, sep:= "`n") {
     _Wrap(line) {
         return wrapStr . line . wrapStr
