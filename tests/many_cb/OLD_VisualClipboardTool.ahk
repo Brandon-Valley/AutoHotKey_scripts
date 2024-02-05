@@ -1,5 +1,7 @@
 #Requires AutoHotkey v2.0
 
+#Requires AutoHotkey v2.0
+
 DEFAULT_EDIT_FONT_NAME := "Consolas"
 class VisualClipboardTool
 {
@@ -18,22 +20,23 @@ class VisualClipboardTool
 ;     static GetAvailableFormats(index)         => CBH_API.GetAvailableFormats(index)
 
 
-    __new(guiObject, cTextOptions, cEditOptions, cTextText) {
-        this.cText := guiObject.AddText(cTextOptions, cTextText)
-        this.cEdit := guiObject.AddEdit(cEditOptions)
+    __new(guiObject, cNewTextOptions, cNewEditOptions, cNewTextText, toolFunc, optionalToolFuncParams := unset) {
 
-        this.cEdit.SetFont(, DEFAULT_EDIT_FONT_NAME)
+
+        cNewText := guiObject.AddText(cNewTextOptions, cNewTextText)
+        cNewEdit := guiObject.AddEdit(cNewEditOptions)
+        cNewEdit.SetFont(, DEFAULT_EDIT_FONT_NAME)
 
         
-        ; UpdateEditControlValue(unusedParamNeededForOnClipboardChange?) {
-        ;     if IsSet(optionalToolFuncParams) {
-        ;         cEdit.value :=  toolFunc(optionalToolFuncParams*)
-        ;     }
-        ;     else {
-        ;         cEdit.value :=  toolFunc()
-        ;     }        }
+        UpdateEditControlValue(unusedParamNeededForOnClipboardChange?) {
+            if IsSet(optionalToolFuncParams) {
+                cNewEdit.value :=  toolFunc(optionalToolFuncParams*)
+            }
+            else {
+                cNewEdit.value :=  toolFunc()
+            }        }
 
-        ; UpdateEditControlValue()
-        ; OnClipboardChange UpdateEditControlValue
+        UpdateEditControlValue()
+        OnClipboardChange UpdateEditControlValue
     }
 }
