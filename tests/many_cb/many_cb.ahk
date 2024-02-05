@@ -84,17 +84,25 @@ RemoveQuotesTool := VisualClipboardTool(
     guiObject              := App,
     cNewTextOptions        := C_NEW_TEXT_OPTIONTS__INSERT_UNDER_PREVIOUS,
     cNewEditOptions        := defaultClipboardToolNewEditOptions,
-    cNewTextText           := "Remove Quotes",
+    cNewTextText           := "Remove Quotes:",
 )
 
-; RemoveQuotesTool := VisualClipboardTool(
-;     guiObject              := App,
-;     cNewTextOptions        := C_NEW_TEXT_OPTIONTS__INSERT_UNDER_PREVIOUS,
-;     cNewEditOptions        := defaultClipboardToolNewEditOptions,
-;     cNewTextText           := "Remove Quotes",
-;     toolFunc               := MultiStrRemove,
-;     optionalToolFuncParams := [A_Clipboard, ["`"", "'"]]
-; )
+
+RemoveCommasTool := VisualClipboardTool(
+    guiObject              := App,
+    cNewTextOptions        := C_NEW_TEXT_OPTIONTS__INSERT_UNDER_PREVIOUS,
+    cNewEditOptions        := defaultClipboardToolNewEditOptions,
+    cNewTextText           := "Remove Commas:",
+)
+
+
+ShowClipboardHistoryItemTool := VisualClipboardTool(
+    guiObject              := App,
+    cNewTextOptions        := C_NEW_TEXT_OPTIONTS__START_NEW_COLUMN,
+    cNewEditOptions        := defaultClipboardToolNewEditOptions,
+    cNewTextText           := "ClipboardHistoryItem:",
+)
+
 
 
 ; VisualClipboardTool(
@@ -103,7 +111,7 @@ RemoveQuotesTool := VisualClipboardTool(
 ;     cNewEditOptions        := defaultClipboardToolNewEditOptions,
 ;     cNewTextText           := "Remove Commas:",
 ;     toolFunc               := StrReplace,
-;     optionalToolFuncParams := [A_Clipboard, ",", ""]
+    ; optionalToolFuncParams := [A_Clipboard, ",", ""]
 ; )
 
 ; VisualClipboardTool(
@@ -120,23 +128,16 @@ UpdateVisualClipboardTools(unusedParamNeededForOnClipboardChange?) {
 
     RemoveQuotesTool.Update(MultiStrRemove(cb, ["`"", "'"]))
 
+    RemoveCommasTool.Update(StrReplace(cb, ",", ""))
 
+    ShowClipboardHistoryItemTool.Update(GetCombinedClipboardHistoryItemText())
 }
 
 
-
+; Update tools for the first time
 UpdateVisualClipboardTools()
 
-
-        ; UpdateEditControlValue(unusedParamNeededForOnClipboardChange?) {
-        ;     if IsSet(optionalToolFuncParams) {
-        ;         cEdit.value :=  toolFunc(optionalToolFuncParams*)
-        ;     }
-        ;     else {
-        ;         cEdit.value :=  toolFunc()
-        ;     }        }
-
-        ; UpdateEditControlValue()
+; Update tools on each Clipboard update
 OnClipboardChange UpdateVisualClipboardTools
 
 
