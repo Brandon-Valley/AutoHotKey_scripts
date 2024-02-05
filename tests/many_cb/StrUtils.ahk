@@ -34,6 +34,17 @@ GetStrAfterAppliedFuncToEachLine(originalStr, func) {
     return GetStrAfterAppliedFuncToEachSeperatedSection(originalStr, func, "`n")
 }
 
+GetStrAfterWrapEachLineWithStr(originalStr, wrapStr) {
+    return GetStrAfterWrapEachSeperatedSectionWithStr(originalStr, wrapStr, sep:= "`n")
+}
+
+GetStrAfterWrapEachSeperatedSectionWithStr(originalStr, wrapStr, sep:= "`n") {
+    _Wrap(line) {
+        return wrapStr . line . wrapStr
+    }
+    return GetStrAfterAppliedFuncToEachSeperatedSection(originalStr, _Wrap, sep)
+}
+
 ; @param func - must take 1 argument for current line
 GetStrAfterAppliedFuncToEachSeperatedSection(originalStr, func, sep := "`n") {
     sep := "`n"

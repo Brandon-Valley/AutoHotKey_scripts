@@ -43,6 +43,8 @@ ShowOriginalClipboardTool := VisualClipboardTool(
     cNewEditOptions        := defaultClipboardToolNewEditOptions,
     cNewTextText           := "Original Clipboard:",
 )
+
+
 ShowCurrentPlainTextTool := VisualClipboardTool(
     guiObject              := App,
     cNewTextOptions        := C_NEW_TEXT_OPTIONTS__START_NEW_COLUMN,
@@ -61,17 +63,19 @@ ShowLowercaseTool := VisualClipboardTool(
     cNewEditOptions        := defaultClipboardToolNewEditOptions,
     cNewTextText           := "Lowercase:",
 )
+
+
 TrimTool := VisualClipboardTool(
     guiObject              := App,
     cNewTextOptions        := C_NEW_TEXT_OPTIONTS__START_NEW_COLUMN,
     cNewEditOptions        := defaultClipboardToolNewEditOptions,
     cNewTextText           := "Trim:",
 )
-RemoveQuotesTool := VisualClipboardTool(
+RemoveDoubleQuotesTool := VisualClipboardTool(
     guiObject              := App,
     cNewTextOptions        := C_NEW_TEXT_OPTIONTS__INSERT_UNDER_PREVIOUS,
     cNewEditOptions        := defaultClipboardToolNewEditOptions,
-    cNewTextText           := "Remove Quotes:",
+    cNewTextText           := "Remove Double Quotes:",
 )
 RemoveCommasTool := VisualClipboardTool(
     guiObject              := App,
@@ -79,6 +83,23 @@ RemoveCommasTool := VisualClipboardTool(
     cNewEditOptions        := defaultClipboardToolNewEditOptions,
     cNewTextText           := "Remove Commas:",
 )
+
+
+AddDoubleQuotesTool := VisualClipboardTool(
+    guiObject              := App,
+    cNewTextOptions        := C_NEW_TEXT_OPTIONTS__START_NEW_COLUMN,
+    cNewEditOptions        := defaultClipboardToolNewEditOptions,
+    cNewTextText           := "Add Double Quotes:",
+)
+
+AddSingleQuotesTool := VisualClipboardTool(
+    guiObject              := App,
+    cNewTextOptions        := C_NEW_TEXT_OPTIONTS__INSERT_UNDER_PREVIOUS,
+    cNewEditOptions        := defaultClipboardToolNewEditOptions,
+    cNewTextText           := "Add Single Quotes:",
+)
+
+
 ShowClipboardHistoryItemTool := VisualClipboardTool(
     guiObject              := App,
     cNewTextOptions        := C_NEW_TEXT_OPTIONTS__START_NEW_COLUMN,
@@ -98,16 +119,17 @@ UpdateVisualClipboardTools(unusedParamNeededForOnClipboardChange?) {
 
     ShowLowercaseTool.Update(StrLower(cb))
 
-    ; TrimTool.Update(Trim(cb))
-    ; TrimTool.Update(GetEachLineTrimmed(cb))
-    ; TrimTool.Update(GetFullTrimmed(cb))
     TrimTool.Update( GetStrAfterAppliedFuncToEachLine( cb, Trim ) )
         
-    RemoveQuotesTool.Update(MultiStrRemove(cb, ["`"", "'"]))
+    RemoveDoubleQuotesTool.Update(MultiStrRemove(cb, ["`"", "'"]))
 
     RemoveCommasTool.Update(StrReplace(cb, ",", ""))
 
     ShowClipboardHistoryItemTool.Update(GetCombinedClipboardHistoryItemText())
+
+    AddDoubleQuotesTool.Update(GetStrAfterWrapEachLineWithStr(cb, "`""))
+    AddSingleQuotesTool.Update(GetStrAfterWrapEachLineWithStr(cb, "'"))
+
 }
 
 
@@ -143,6 +165,8 @@ App.Show()
 ; ######################################################################################################################
 ; Methods
 ; ######################################################################################################################
+
+
 
 
 GetCombinedClipboardHistoryItemText(endStr := "---", cbItemSeperator := "`n", returnIfEndNotFound := "") {
