@@ -94,6 +94,7 @@ UpdateVisualClipboardTools(unusedParamNeededForOnClipboardChange?) {
 
     ; TrimTool.Update(Trim(cb))
     ; TrimTool.Update(GetEachLineTrimmed(cb))
+    ; TrimTool.Update(GetFullTrimmed(cb))
     TrimTool.Update( GetStrAfterAppliedFuncToEachLine( cb, Trim ) )
         
     RemoveQuotesTool.Update(MultiStrRemove(cb, ["`"", "'"]))
@@ -153,20 +154,21 @@ GetStrAfterAppliedFuncToEachLine(originalStr, func) {
     return SubStr(newStr, 1, -StrLen(sep))
 }
 
-GetEachLineTrimmed(originalStr) {
-
+; GetFullTrimmed(originalStr) {
+;     newStr1 := GetStrAfterAppliedFuncToEachLine(originalStr, Trim)
+;     return Trim(newStr1, "`r")
     
-    sep := "`n"
-    newStr := ""
-    lines := _GetLinesFromStr(originalStr)
-    for line in lines {
-        newLine := Trim(line)
-        ; newStr := newStr . new
-        ; newStr := _Join("`n", newStr, newLine)
-        newStr := newStr . newLine . sep
-    }
-    return SubStr(newStr, 1, -StrLen(sep))
-}
+    ; sep := "`n"
+    ; newStr := ""
+    ; lines := _GetLinesFromStr(originalStr)
+    ; for line in lines {
+    ;     newLine := Trim(line)
+    ;     ; newStr := newStr . new
+    ;     ; newStr := _Join("`n", newStr, newLine)
+    ;     newStr := newStr . newLine . sep
+    ; }
+    ; return SubStr(newStr, 1, -StrLen(sep))
+; }
 
 
 
