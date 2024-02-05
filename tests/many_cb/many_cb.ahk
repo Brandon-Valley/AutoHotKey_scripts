@@ -50,11 +50,19 @@ ShowOriginalClipboardTool := VisualClipboardTool(
     cNewEditOptions        := defaultClipboardToolNewEditOptions,
     cNewTextText           := "Original Clipboard:",
 )
+ShowCurrentPlainTextTool := VisualClipboardTool(
+    guiObject              := App,
+    cNewTextOptions        := C_NEW_TEXT_OPTIONTS__INSERT_UNDER_PREVIOUS,
+    cNewEditOptions        := defaultClipboardToolNewEditOptions,
+    cNewTextText           := "Current as Plain-Text:",
+    exemptFromUpdateCheck  := 1
+)
 ShowClipboardHistoryItemTool := VisualClipboardTool(
     guiObject              := App,
     cNewTextOptions        := C_NEW_TEXT_OPTIONTS__INSERT_UNDER_PREVIOUS,
     cNewEditOptions        := defaultClipboardToolNewEditOptions,
     cNewTextText           := "ClipboardHistoryItem:",
+    exemptFromUpdateCheck  := 1
 )
 ; Align
 AlignTool := VisualClipboardTool(
@@ -64,16 +72,12 @@ AlignTool := VisualClipboardTool(
     cNewTextText           := "Align:",
 )
 
+
+
 ; Format
-ShowCurrentPlainTextTool := VisualClipboardTool(
-    guiObject              := App,
-    cNewTextOptions        := C_NEW_TEXT_OPTIONTS__START_NEW_COLUMN,
-    cNewEditOptions        := defaultClipboardToolNewEditOptions,
-    cNewTextText           := "Current as Plain-Text:",
-)
 ShowUppercaseTool := VisualClipboardTool(
     guiObject              := App,
-    cNewTextOptions        := C_NEW_TEXT_OPTIONTS__INSERT_UNDER_PREVIOUS,
+    cNewTextOptions        := C_NEW_TEXT_OPTIONTS__START_NEW_COLUMN,
     cNewEditOptions        := defaultClipboardToolNewEditOptions,
     cNewTextText           := "Uppercase:",
 )
@@ -173,10 +177,10 @@ UpdateVisualClipboardTools(unusedParamNeededForOnClipboardChange?) {
 }
 
 
-; ====================================================
-; Set value for tools that dont change during runtime
-; ====================================================
-ShowOriginalClipboardTool.Update(A_Clipboard)
+; ; ====================================================
+; ; Set value for tools that dont change during runtime
+; ; ====================================================
+ShowOriginalClipboardTool.cEdit.Value := A_Clipboard
 
 ;==============================================================
 ; Configure how / when all tools will be updated (all at once)

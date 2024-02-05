@@ -23,9 +23,9 @@ baz
  
 
     
-"foo" : "qux",
-   "bar" :      "bob",
-"baz": "joe"
+"foo" : "qux"  : d,
+   "bar" :      "bob   : q",
+"baz": "joe  : a"
  
     
   

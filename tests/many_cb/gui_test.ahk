@@ -1,101 +1,55 @@
-; ; #Include, AutoXYWH.ahk
+Gui := GuiCreate(, "Test")
+Gui.BackColor := 000000
 
-; ; Gui, +Resize
-; ; Gui, Add, Edit, ve1 w150 h100
-; ; Gui, Add, Button, vb1 gResize, Resize
-; ; Gui, Show
-; ; return
+hTx1 := Gui.Add("Text", "BackgroundCFD8DC", "Edit Control:")
+hTx1.SetFont("c263238")
 
-; ; Resize:
-; ;     GuiControl, Move, e1, h50
-; ;     AutoXYWH("reset") ; Needs to reset if you changed the Control size manually.
-; ; return
- 
-; ; GuiSize:
-; ;     If (A_EventInfo = 1) ; The window has been minimized.
-; ;         Return
-; ;     AutoXYWH("wh", "e1")
-; ;     AutoXYWH("y", "b1")
-; ; return
+hEdt1 := Gui.Add("Edit", "w400 r5 BackgroundE1BEE7", "Edit 1`nEdit 2`nEdit 3")
+hEdt1.SetFont("c4A148C")
 
-; #Requires AutoHotkey v2.0
+hEdt2 := Gui.Add("Edit", "w400 r5", "Edit 1`nEdit 2`nEdit 3")
+hEdt2.SetFont("c0000FF")
+hEdt2.Opt("Background00FFFF")
 
-; ; Define a function that takes another function as a parameter
-; PerformOperation(func, x, y) {
-;     ; Call the passed function with the provided arguments
-;     return func.Call(x, y)
-; }
+Gui.Add("Text", "BackgroundCFD8DC", "ComboBox Control:").SetFont("c263238")
+Gui.Add("Combobox", "w400 BackgroundBBDEFB", "Combo 1||Combo 2|Combo 3|Combo 4").SetFont("c0D47A1")
 
-; ; Define a function to be passed as a parameter
-; Add(x, y) {
-;     return x + y
-; }
+Gui.Add("Text", "BackgroundCFD8DC", "ListBox Control:").SetFont("c263238")
+Gui.Add("ListBox", "w400 r4 BackgroundB2DFDB", "ListBox 1||ListBox 2|ListBox 3|ListBox 4").SetFont("c004D40")
 
-; ; Call PerformOperation with the Add function and some arguments
-; ; result := PerformOperation(Func("Add"), 5, 3)
-; result := PerformOperation(Add, 5, 3)
+Gui.Add("Text", "BackgroundCFD8DC", "DropDownList Control:").SetFont("c263238")
+Gui.Add("DropDownList", "w400 r4 BackgroundF0F4C3", "DropDownList 1||DropDownList 2|DropDownList 3|DropDownList 4").SetFont("c827717")
 
-; ; Display the result
-; MsgBox result  ; Displays 8
+Gui.Add("Text", "BackgroundCFD8DC", "DropDownList Control (default):").SetFont("c263238")
+Gui.Add("DropDownList", "w400 r4", "DropDownList 1||DropDownList 2|DropDownList 3|DropDownList 4").SetFont("c827717")
 
+Gui.Add("Text", "BackgroundCFD8DC", "ListView Control:").SetFont("c263238")
+;Gui.SetFont("cE65100")                                                                  ; works like the cXXXXXX option for LV
+LV := Gui.Add("ListView", "w400 r10 BackgroundFFE0B2 cE65100", "Col 1|Col 2|Col 3")      ; .SetFont("") is not possible here
+loop 5
+	LV.Add(, A_Index, A_Index * 2, A_Index * 3)
 
-#Requires AutoHotkey v2.0
-#SingleInstance Force ; No others
+Gui.Add("Button",, "Change Color").OnEvent("Click", "ChangeCtlColors")                   ; there is a white border around Buttons? Possible workaround -> WM_CTLCOLORBTN()
 
-#Requires AutoHotkey v2.0
+Gui.OnEvent("Close", "DeleteObjects")
+Gui.Show()
 
-
-StrJoin(delimiter, arr) {
-    ; Initialize an empty string
-    str := ""
-
-    ; Iterate over each item in the array
-    for index, item in arr {
-        ; Add the item to the string
-        str .= item
-
-        ; If this is not the last item, add the delimiter
-        if (index < arr.Length)
-            str .= delimiter
-    }
-
-    ; Return the joined string
-    return str
+ChangeCtlColors(this, *)
+{
+	global hEdt2                                                                         ; does I really need a global here to act with gui controls?
+	hEdt2.Opt("BackgroundE7BEE1")
+	hEdt2.SetFont("cFF0000")
 }
 
-
-
-AlignString(originalStr, targetStr) {
-    ; Split the string into lines
-    lines := StrSplit(originalStr, "`n", "`r")
-
-    ; Initialize the maximum length
-    maxLength := 0
-
-    ; Find the maximum length before the targetStr character
-    for line in lines {
-        parts := StrSplit(line, targetStr)
-        if (parts.Length >= 2 && StrLen(Trim(parts[1])) > maxLength)
-            maxLength := StrLen(Trim(parts[1]))
-    }
-
-    ; Align each line based on the targetStr character
-    for index, line in lines {
-        parts := StrSplit(line, targetStr)
-        if (parts.Length >= 2)
-            lines[index] := Format("{: " maxLength "} " targetStr " {}", Trim(parts[1]), Trim(parts[2]))
-    }
-
-    ; Join the lines back into a string
-    alignedStr := StrJoin("`n", lines)
-
-    return alignedStr
+DeleteObjects(this, *)
+{
+	if (hBrush)
+		DllCall("gdi32\DeleteObject", "ptr", hBrush)
 }
 
-
-
-
-; Test the function
-originalStr :=("`napple = 1`nbanana = 2`ncherry = 3`n")
-
-MsgBox AlignString(originalStr, "=")  ; Displays the aligned string
+WM_CTLCOLORBTN(*)                                                                        ; this should be a build-in default for Button-Borders
+{
+	global hBrush
+	static init   := OnMessage(0x0135, "WM_CTLCOLORBTN")
+	return hBrush := DllCall("gdi32\CreateSolidBrush", "uint", 0x000000, "uptr")
+}

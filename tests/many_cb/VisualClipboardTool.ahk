@@ -2,7 +2,10 @@
 
 DEFAULT_EDIT_FONT_NAME := "Consolas"
 
+COLOR_HEX_UPDATED := "e2efda"
+COLOR_HEX_NOT_UPDATED := "fce4d6"
 
+INITIAL_EDIT_VALUE := "INITAL_EDIT_VALUE!"
 
 class VisualClipboardTool
 {
@@ -34,14 +37,30 @@ class VisualClipboardTool
     *     Disabled 
     *     Hidden
     */
-    __new(guiObject, cTextOptions, cEditOptions, cTextText) {
+    __new(guiObject, cTextOptions, cEditOptions, cTextText, exemptFromUpdateCheck := 0) {
+        this.exemptFromUpdateCheck := exemptFromUpdateCheck
         this.cText := guiObject.AddText(cTextOptions, cTextText)
         this.cEdit := guiObject.AddEdit(cEditOptions)
+        ; this.trueValue := A_Clipboard
 
         this.cEdit.SetFont(, DEFAULT_EDIT_FONT_NAME)
     }
 
     Update(newEditValue) {
+        if (this.exemptFromUpdateCheck) {
+            this.cEdit.Value := newEditValue
+            return
+        }
+
+        ; if (this.trueValue == newEditValue) {
+        if (A_Clipboard == newEditValue) {
+            this.cEdit.Opt("Background" . COLOR_HEX_NOT_UPDATED)
+            this.cEdit.Value := ""
+            return
+        }
+
+        this.cEdit.Opt("Background" . COLOR_HEX_UPDATED)
         this.cEdit.Value := newEditValue
+        ; this.trueValue  := newEditValue
     }
 }
