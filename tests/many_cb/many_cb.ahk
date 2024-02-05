@@ -43,6 +43,12 @@ ShowOriginalClipboardTool := VisualClipboardTool(
     cNewEditOptions        := defaultClipboardToolNewEditOptions,
     cNewTextText           := "Original Clipboard:",
 )
+ShowClipboardHistoryItemTool := VisualClipboardTool(
+    guiObject              := App,
+    cNewTextOptions        := C_NEW_TEXT_OPTIONTS__INSERT_UNDER_PREVIOUS,
+    cNewEditOptions        := defaultClipboardToolNewEditOptions,
+    cNewTextText           := "ClipboardHistoryItem:",
+)
 
 
 ShowCurrentPlainTextTool := VisualClipboardTool(
@@ -99,13 +105,6 @@ AddSingleQuotesTool := VisualClipboardTool(
     cNewTextText           := "Add Single Quotes:",
 )
 
-
-ShowClipboardHistoryItemTool := VisualClipboardTool(
-    guiObject              := App,
-    cNewTextOptions        := C_NEW_TEXT_OPTIONTS__START_NEW_COLUMN,
-    cNewEditOptions        := defaultClipboardToolNewEditOptions,
-    cNewTextText           := "ClipboardHistoryItem:",
-)
 
 ; =====================================================================
 ; Define how each tool will be updated during runtime loop
