@@ -37,46 +37,73 @@ App.SetFont("s12")
 
 defaultClipboardToolNewEditOptions := " ReadOnly r8 w300 -Wrap "
 
-AddToolControls(
-    toolOutputStr   := cb,
-    guiObject       := App,
-    cNewTextOptions := C_NEW_TEXT_OPTIONTS__INSERT_UNDER_PREVIOUS,
-    cNewTextText    := "Plain Text:",
-    cNewEditOptions := defaultClipboardToolNewEditOptions
-)
-
-AddToolControls(
-    toolOutputStr   := StrUpper(cb),
-    guiObject       := App,
-    cNewTextOptions := C_NEW_TEXT_OPTIONTS__INSERT_UNDER_PREVIOUS,
-    cNewTextText    := "Uppercase:",
-    cNewEditOptions := defaultClipboardToolNewEditOptions
-)
-
-AddToolControls(
-    toolOutputStr   := StrLower(cb),
-    guiObject       := App,
-    cNewTextOptions := C_NEW_TEXT_OPTIONTS__INSERT_UNDER_PREVIOUS,
-    cNewTextText    := "Lowercase:",
-    cNewEditOptions := defaultClipboardToolNewEditOptions
-)
-
-AddToolControls(
-    toolOutputStr   := Trim(cb),
-    guiObject       := App,
-    cNewTextOptions := C_NEW_TEXT_OPTIONTS__START_NEW_COLUMN,
-    cNewTextText    := "Trim:",
-    cNewEditOptions := defaultClipboardToolNewEditOptions
-)
-
 ; AddToolControls(
-;     toolOutputStr   := MultiStrRemove(cb, ["`"", "'"]),
+;     toolOutputStr   := cb,
 ;     guiObject       := App,
 ;     cNewTextOptions := C_NEW_TEXT_OPTIONTS__INSERT_UNDER_PREVIOUS,
-;     cNewTextText    := "Remove Quotes",
+;     cNewTextText    := "Plain Text:",
 ;     cNewEditOptions := defaultClipboardToolNewEditOptions
 ; )
 
+; AddToolControls(
+;     toolOutputStr   := StrUpper(cb),
+;     guiObject       := App,
+;     cNewTextOptions := C_NEW_TEXT_OPTIONTS__INSERT_UNDER_PREVIOUS,
+;     cNewTextText    := "Uppercase:",
+;     cNewEditOptions := defaultClipboardToolNewEditOptions
+; )
+
+; AddToolControls(
+;     toolOutputStr   := StrLower(cb),
+;     guiObject       := App,
+;     cNewTextOptions := C_NEW_TEXT_OPTIONTS__INSERT_UNDER_PREVIOUS,
+;     cNewTextText    := "Lowercase:",
+;     cNewEditOptions := defaultClipboardToolNewEditOptions
+; )
+
+; AddToolControls(
+;     toolOutputStr   := Trim(cb),
+;     guiObject       := App,
+;     cNewTextOptions := C_NEW_TEXT_OPTIONTS__START_NEW_COLUMN,
+;     cNewTextText    := "Trim:",
+;     cNewEditOptions := defaultClipboardToolNewEditOptions
+; )
+
+
+
+
+ShowCurrentPlainTextTool := VisualClipboardTool(
+    guiObject              := App,
+    cNewTextOptions        := C_NEW_TEXT_OPTIONTS__INSERT_UNDER_PREVIOUS,
+    cNewEditOptions        := defaultClipboardToolNewEditOptions,
+    cNewTextText           := "Current as Plain-Text:",
+)
+
+
+ShowUppercaseTool := VisualClipboardTool(
+    guiObject              := App,
+    cNewTextOptions        := C_NEW_TEXT_OPTIONTS__INSERT_UNDER_PREVIOUS,
+    cNewEditOptions        := defaultClipboardToolNewEditOptions,
+    cNewTextText           := "Uppercase:",
+)
+
+
+
+ShowLowercaseTool := VisualClipboardTool(
+    guiObject              := App,
+    cNewTextOptions        := C_NEW_TEXT_OPTIONTS__INSERT_UNDER_PREVIOUS,
+    cNewEditOptions        := defaultClipboardToolNewEditOptions,
+    cNewTextText           := "Lowercase:",
+)
+
+
+
+TrimTool := VisualClipboardTool(
+    guiObject              := App,
+    cNewTextOptions        := C_NEW_TEXT_OPTIONTS__START_NEW_COLUMN,
+    cNewEditOptions        := defaultClipboardToolNewEditOptions,
+    cNewTextText           := "Trim:",
+)
 
 
 
@@ -105,26 +132,16 @@ ShowClipboardHistoryItemTool := VisualClipboardTool(
 
 
 
-; VisualClipboardTool(
-;     guiObject              := App,
-;     cNewTextOptions        := C_NEW_TEXT_OPTIONTS__INSERT_UNDER_PREVIOUS,
-;     cNewEditOptions        := defaultClipboardToolNewEditOptions,
-;     cNewTextText           := "Remove Commas:",
-;     toolFunc               := StrReplace,
-    ; optionalToolFuncParams := [A_Clipboard, ",", ""]
-; )
-
-; VisualClipboardTool(
-;     guiObject       := App,
-;     cNewTextOptions := C_NEW_TEXT_OPTIONTS__START_NEW_COLUMN,
-;     cNewEditOptions := defaultClipboardToolNewEditOptions,
-;     cNewTextText    := "ClipboardHistoryItem:",
-;     toolFunc        := GetCombinedClipboardHistoryItemText
-; )
-
-
 UpdateVisualClipboardTools(unusedParamNeededForOnClipboardChange?) {
     cb := A_Clipboard
+
+    ShowCurrentPlainTextTool.Update(cb)
+
+    ShowUppercaseTool.Update(StrUpper(cb))
+
+    ShowLowercaseTool.Update(StrLower(cb))
+
+    TrimTool.Update(Trim(cb))
 
     RemoveQuotesTool.Update(MultiStrRemove(cb, ["`"", "'"]))
 
