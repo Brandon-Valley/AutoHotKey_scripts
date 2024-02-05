@@ -144,46 +144,6 @@ App.Show()
 ; Methods
 ; ######################################################################################################################
 
-_GetLinesFromStr(originalStr, delimiter := "`n") {
-    return StrSplit(originalStr, delimiter)
-}
-
-; _Join(sep, params*) {
-;     for index,param in params
-;         str .= param . sep
-;     return SubStr(str, 1, -StrLen(sep))
-; }
-
-; @param func - must take 1 argument for current line
-GetStrAfterAppliedFuncToEachLine(originalStr, func) {
-    sep := "`n"
-    newStr := ""
-    lines := _GetLinesFromStr(originalStr)
-    for line in lines {
-        newLine := func(line)
-        newStr := newStr . newLine . sep
-    }
-    return SubStr(newStr, 1, -StrLen(sep))
-}
-
-; GetFullTrimmed(originalStr) {
-;     newStr1 := GetStrAfterAppliedFuncToEachLine(originalStr, Trim)
-;     return Trim(newStr1, "`r")
-    
-    ; sep := "`n"
-    ; newStr := ""
-    ; lines := _GetLinesFromStr(originalStr)
-    ; for line in lines {
-    ;     newLine := Trim(line)
-    ;     ; newStr := newStr . new
-    ;     ; newStr := _Join("`n", newStr, newLine)
-    ;     newStr := newStr . newLine . sep
-    ; }
-    ; return SubStr(newStr, 1, -StrLen(sep))
-; }
-
-
-
 
 GetCombinedClipboardHistoryItemText(endStr := "---", cbItemSeperator := "`n", returnIfEndNotFound := "") {
     resultStr := ""
