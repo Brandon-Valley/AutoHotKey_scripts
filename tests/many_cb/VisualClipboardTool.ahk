@@ -36,4 +36,8 @@ class VisualClipboardTool
         ; UpdateEditControlValue()
         ; OnClipboardChange UpdateEditControlValue
     }
+
+    Update(newEditValue) {
+        this.cEdit.Value := newEditValue
+    }
 }

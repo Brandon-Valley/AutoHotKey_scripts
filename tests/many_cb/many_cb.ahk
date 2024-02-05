@@ -80,32 +80,50 @@ AddToolControls(
 
 
 
-VisualClipboardTool(
+RemoveQuotesTool := VisualClipboardTool(
     guiObject              := App,
     cNewTextOptions        := C_NEW_TEXT_OPTIONTS__INSERT_UNDER_PREVIOUS,
     cNewEditOptions        := defaultClipboardToolNewEditOptions,
     cNewTextText           := "Remove Quotes",
-    toolFunc               := MultiStrRemove,
-    optionalToolFuncParams := [A_Clipboard, ["`"", "'"]]
 )
 
+; RemoveQuotesTool := VisualClipboardTool(
+;     guiObject              := App,
+;     cNewTextOptions        := C_NEW_TEXT_OPTIONTS__INSERT_UNDER_PREVIOUS,
+;     cNewEditOptions        := defaultClipboardToolNewEditOptions,
+;     cNewTextText           := "Remove Quotes",
+;     toolFunc               := MultiStrRemove,
+;     optionalToolFuncParams := [A_Clipboard, ["`"", "'"]]
+; )
 
-VisualClipboardTool(
-    guiObject              := App,
-    cNewTextOptions        := C_NEW_TEXT_OPTIONTS__INSERT_UNDER_PREVIOUS,
-    cNewEditOptions        := defaultClipboardToolNewEditOptions,
-    cNewTextText           := "Remove Commas:",
-    toolFunc               := StrReplace,
-    optionalToolFuncParams := [A_Clipboard, ",", ""]
-)
 
-VisualClipboardTool(
-    guiObject       := App,
-    cNewTextOptions := C_NEW_TEXT_OPTIONTS__START_NEW_COLUMN,
-    cNewEditOptions := defaultClipboardToolNewEditOptions,
-    cNewTextText    := "ClipboardHistoryItem:",
-    toolFunc        := GetCombinedClipboardHistoryItemText
-)
+; VisualClipboardTool(
+;     guiObject              := App,
+;     cNewTextOptions        := C_NEW_TEXT_OPTIONTS__INSERT_UNDER_PREVIOUS,
+;     cNewEditOptions        := defaultClipboardToolNewEditOptions,
+;     cNewTextText           := "Remove Commas:",
+;     toolFunc               := StrReplace,
+;     optionalToolFuncParams := [A_Clipboard, ",", ""]
+; )
+
+; VisualClipboardTool(
+;     guiObject       := App,
+;     cNewTextOptions := C_NEW_TEXT_OPTIONTS__START_NEW_COLUMN,
+;     cNewEditOptions := defaultClipboardToolNewEditOptions,
+;     cNewTextText    := "ClipboardHistoryItem:",
+;     toolFunc        := GetCombinedClipboardHistoryItemText
+; )
+
+
+UpdateVisualClipboardTools(cb) {
+    RemoveQuotesTool.Update(MultiStrRemove(cb, ["`"", "'"]))
+
+
+}
+
+
+
+UpdateVisualClipboardTools(A_Clipboard)
 
 
 
