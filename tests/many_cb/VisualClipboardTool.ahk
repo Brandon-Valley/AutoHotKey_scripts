@@ -18,24 +18,12 @@ class VisualClipboardTool
 ;     static GetAvailableFormats(index)         => CBH_API.GetAvailableFormats(index)
 
 
-    ; Edit Control value is updated with return of toolFunc on each clipboard change
-    ; __new(guiObject, cNewTextOptions, cNewTextText, cNewEditOptions, toolFunc, optionalToolFuncParams := unset) {
     __new(guiObject, cNewTextOptions, cNewEditOptions, cNewTextText, toolFunc, optionalToolFuncParams := unset) {
-        ; this.toolFunc = toolFunc
 
 
         cNewText := guiObject.AddText(cNewTextOptions, cNewTextText)
         cNewEdit := guiObject.AddEdit(cNewEditOptions)
         cNewEdit.SetFont(, DEFAULT_EDIT_FONT_NAME)
-
-        ; RunToolFunc() {
-        ;     if IsSet(optionalToolFuncParams) {
-        ;         return toolFunc(optionalToolFuncParams*)
-        ;     }
-        ;     else {
-        ;         return toolFunc()
-        ;     }
-        ; }
 
         
         UpdateEditControlValue(unusedParamNeededForOnClipboardChange?) {
