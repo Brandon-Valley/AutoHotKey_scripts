@@ -115,7 +115,9 @@ RemoveQuotesTool := VisualClipboardTool(
 ; )
 
 
-UpdateVisualClipboardTools(cb) {
+UpdateVisualClipboardTools(unusedParamNeededForOnClipboardChange?) {
+    cb := A_Clipboard
+
     RemoveQuotesTool.Update(MultiStrRemove(cb, ["`"", "'"]))
 
 
@@ -123,10 +125,19 @@ UpdateVisualClipboardTools(cb) {
 
 
 
-UpdateVisualClipboardTools(A_Clipboard)
+UpdateVisualClipboardTools()
 
 
+        ; UpdateEditControlValue(unusedParamNeededForOnClipboardChange?) {
+        ;     if IsSet(optionalToolFuncParams) {
+        ;         cEdit.value :=  toolFunc(optionalToolFuncParams*)
+        ;     }
+        ;     else {
+        ;         cEdit.value :=  toolFunc()
+        ;     }        }
 
+        ; UpdateEditControlValue()
+OnClipboardChange UpdateVisualClipboardTools
 
 
 
