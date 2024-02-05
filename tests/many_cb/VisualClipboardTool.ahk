@@ -1,6 +1,9 @@
 #Requires AutoHotkey v2.0
 
 DEFAULT_EDIT_FONT_NAME := "Consolas"
+
+
+
 class VisualClipboardTool
 {
 ; ; properties
@@ -18,23 +21,24 @@ class VisualClipboardTool
 ;     static GetAvailableFormats(index)         => CBH_API.GetAvailableFormats(index)
 
 
+    /**
+    * @param cTextOptions Options:
+    *     V: Sets the control's Name.
+    *     Pos: xn yn wn hn rn Right Left Center Section VScroll HScroll
+    *     -Tabstop 
+    *     -Wrap 
+    *     BackgroundColor 
+    *     BackgroundTrans 
+    *     Border 
+    *     Theme 
+    *     Disabled 
+    *     Hidden
+    */
     __new(guiObject, cTextOptions, cEditOptions, cTextText) {
         this.cText := guiObject.AddText(cTextOptions, cTextText)
         this.cEdit := guiObject.AddEdit(cEditOptions)
 
         this.cEdit.SetFont(, DEFAULT_EDIT_FONT_NAME)
-
-        
-        ; UpdateEditControlValue(unusedParamNeededForOnClipboardChange?) {
-        ;     if IsSet(optionalToolFuncParams) {
-        ;         cEdit.value :=  toolFunc(optionalToolFuncParams*)
-        ;     }
-        ;     else {
-        ;         cEdit.value :=  toolFunc()
-        ;     }        }
-
-        ; UpdateEditControlValue()
-        ; OnClipboardChange UpdateEditControlValue
     }
 
     Update(newEditValue) {
