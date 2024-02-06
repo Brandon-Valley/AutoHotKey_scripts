@@ -40,10 +40,15 @@ class VisualClipboardTool
     __new(guiObject, cTextOptions, cEditOptions, cTextText, exemptFromUpdateCheck := 0) {
         this.exemptFromUpdateCheck := exemptFromUpdateCheck
         this.cText := guiObject.AddText(cTextOptions, cTextText)
-        this.cEdit := guiObject.AddEdit(cEditOptions)
+        this.cEdit := guiObject.AddText(cEditOptions)
         ; this.trueValue := A_Clipboard
 
         this.cEdit.SetFont(, DEFAULT_EDIT_FONT_NAME)
+
+
+
+
+        this.cEdit.OnEvent("Click", this._SingleClick)
     }
 
     Update(newEditValue) {
@@ -62,5 +67,11 @@ class VisualClipboardTool
         this.cEdit.Opt("Background" . COLOR_HEX_UPDATED)
         this.cEdit.Value := newEditValue
         ; this.trueValue  := newEditValue
+    }
+
+    _SingleClick(unusedParamNeededForOnClipboardChange?) {
+        ;B/c of how this is called, this.cEdit == this
+        A_Clipboard := this.Value
+        ;TODO flash color change for feedback
     }
 }

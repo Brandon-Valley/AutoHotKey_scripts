@@ -3,7 +3,7 @@
 
 ; TODO
 ; - alighn
-
+; slow b/c only one on clipboard?
 
 
 #Requires AutoHotkey v2.0
@@ -150,6 +150,8 @@ AddDictLeftTool := VisualClipboardTool(
 UpdateVisualClipboardTools(unusedParamNeededForOnClipboardChange?) {
     cb := A_Clipboard
 
+    ; msgBox("Start of UpdateVisualClipboardTools, clipboard == " . cb)
+
     ShowCurrentPlainTextTool.Update(cb)
 
     ShowUppercaseTool.Update(StrUpper(cb))
@@ -173,6 +175,9 @@ UpdateVisualClipboardTools(unusedParamNeededForOnClipboardChange?) {
     AddDictLeftTool.Update(GetStrAddedToDict(cb, "left"))
 
     AlignTool.Update(AlignStr(cb, ":"))
+
+    ; msgBox("End of UpdateVisualClipboardTools, clipboard == " . cb)
+
 
 }
 
