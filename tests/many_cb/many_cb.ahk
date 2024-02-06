@@ -95,11 +95,11 @@ TrimTool := VisualClipboardTool(
     cNewEditOptions        := defaultClipboardToolNewEditOptions,
     cNewTextText           := "Trim:",
 )
-RemoveDoubleQuotesTool := VisualClipboardTool(
+RemoveAllQuotesTool := VisualClipboardTool(
     guiObject              := App,
     cNewTextOptions        := C_NEW_TEXT_OPTIONTS__INSERT_UNDER_PREVIOUS,
     cNewEditOptions        := defaultClipboardToolNewEditOptions,
-    cNewTextText           := "Remove Double Quotes:",
+    cNewTextText           := "Remove All Quotes:",
 )
 RemoveCommasTool := VisualClipboardTool(
     guiObject              := App,
@@ -160,7 +160,7 @@ UpdateVisualClipboardTools(unusedParamNeededForOnClipboardChange?) {
 
     TrimTool.Update( GetStrAfterAppliedFuncToEachLine( cb, Trim ) )
         
-    RemoveDoubleQuotesTool.Update(MultiStrRemove(cb, ["`"", "'"]))
+    RemoveAllQuotesTool.Update(MultiStrRemove(cb, ["`"", "'"]))
 
     RemoveCommasTool.Update(StrReplace(cb, ",", ""))
 

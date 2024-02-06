@@ -2,6 +2,7 @@
 
 DEFAULT_EDIT_FONT_NAME := "Consolas"
 
+COLOR_HEX_INITIAL := "bdbdbd"
 COLOR_HEX_UPDATED := "e2efda"
 COLOR_HEX_NOT_UPDATED := "fce4d6"
 
@@ -40,7 +41,7 @@ class VisualClipboardTool
     __new(guiObject, cTextOptions, cEditOptions, cTextText, exemptFromUpdateCheck := 0) {
         this.exemptFromUpdateCheck := exemptFromUpdateCheck
         this.cText := guiObject.AddText(cTextOptions, cTextText)
-        this.cEdit := guiObject.AddText(cEditOptions)
+        this.cEdit := guiObject.AddText(cEditOptions " Background" . COLOR_HEX_INITIAL) ; TODO rename
         ; this.trueValue := A_Clipboard
 
         this.cEdit.SetFont(, DEFAULT_EDIT_FONT_NAME)
