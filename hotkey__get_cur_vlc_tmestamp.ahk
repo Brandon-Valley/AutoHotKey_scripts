@@ -1,3 +1,4 @@
+#Requires Autohotkey v1.1
 #SingleInstance, force
 
 ; https://www.reddit.com/r/AutoHotkey/comments/p4byvc/is_there_a_way_to_copy_the_current_timestamp_of_a/

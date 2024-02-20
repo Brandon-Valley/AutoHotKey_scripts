@@ -1,3 +1,6 @@
+#Requires Autohotkey v1.1
+#SingleInstance, force
+
 ; ; autohotkey script to prompt chatgpt to give answer to leetcode question saved in clipboard using this format ONLY for the answer:
 
 ; ; # Intuition

@@ -1,4 +1,7 @@
+#Requires Autohotkey v1.1
 #SingleInstance, force
+
+
 ::pvarl::
 cb_no_double_quotes := StrReplace(Clipboard, """", "'")
 SendInput, print(f"{{}len(
