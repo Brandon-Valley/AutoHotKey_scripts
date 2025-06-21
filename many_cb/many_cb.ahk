@@ -107,6 +107,12 @@ RemoveCommasTool := VisualClipboardTool(
     cNewEditOptions        := defaultClipboardToolNewEditOptions,
     cNewTextText           := "Remove Commas:",
 )
+RemoveLineBreaksTool := VisualClipboardTool(
+    guiObject              := App,
+    cNewTextOptions        := C_NEW_TEXT_OPTIONTS__INSERT_UNDER_PREVIOUS,
+    cNewEditOptions        := defaultClipboardToolNewEditOptions,
+    cNewTextText           := "Remove Line Breaks:",
+)
 
 ; Add
 AddDoubleQuotesTool := VisualClipboardTool(
@@ -163,6 +169,9 @@ UpdateVisualClipboardTools(unusedParamNeededForOnClipboardChange?) {
     RemoveAllQuotesTool.Update(MultiStrRemove(cb, ["`"", "'"]))
 
     RemoveCommasTool.Update(StrReplace(cb, ",", ""))
+
+    ; Replace Windows, Unix, & Mac line breaks with space
+    RemoveLineBreaksTool.Update(MultiStrReplace(cb, ["`r`n", "`n", "`r"], " "))
 
     ShowClipboardHistoryItemTool.Update(GetCombinedClipboardHistoryItemText())
 
